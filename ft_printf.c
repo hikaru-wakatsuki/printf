@@ -6,11 +6,11 @@
 /*   By: hwakatsu <hwakatsu@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/24 19:21:03 by hwakatsu          #+#    #+#             */
-/*   Updated: 2025/10/24 20:50:55 by hwakatsu         ###   ########.fr       */
+/*   Updated: 2025/10/24 21:42:24 by hwakatsu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdarg.h>
+#include <printf.h>
 
 // int	count_n_and_one(const char *format, const char n)
 // {
@@ -29,7 +29,7 @@
 // 	return (i);
 // }
 
-bool	is_valid_flag(const char flag)
+bool	is_valid_flag(const char flag, void *content)
 {
 
 }
@@ -37,7 +37,7 @@ bool	is_valid_flag(const char flag)
 int	ft_printf(const char *format, ...)
 {
 	char	flag;
-	va_list		ap;
+	va_list	ap;
 
 	va_start(ap, format);
 	while (*format)
@@ -45,11 +45,10 @@ int	ft_printf(const char *format, ...)
 		if (*format == '%')
 		{
 			flag = *(++format);
-			if (is_valid_flag(flag));
-			va_arg(ap, int);
+			if (is_valid_flag(flag, va_arg(ap, void *)))
+				return (0);
 		}
 		++format;
-
 	}
 	va_end(ap);
 	return (1);
