@@ -6,7 +6,7 @@
 #    By: hwakatsu <hwakatsu@student.42tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/10/24 19:20:27 by hwakatsu          #+#    #+#              #
-#    Updated: 2025/10/24 19:45:45 by hwakatsu         ###   ########.fr        #
+#    Updated: 2025/10/24 22:39:30 by hwakatsu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ CC = cc
 CFLAGS = -Wall -Wextra -Werror
 INCDIR = .
 
-SRCS =	ft_isalpha.c \
+SRCS =		ft_printf.c \
 
 
 

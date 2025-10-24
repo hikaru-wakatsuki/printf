@@ -6,7 +6,7 @@
 /*   By: hwakatsu <hwakatsu@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/24 19:21:03 by hwakatsu          #+#    #+#             */
-/*   Updated: 2025/10/24 21:42:24 by hwakatsu         ###   ########.fr       */
+/*   Updated: 2025/10/24 22:37:54 by hwakatsu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@
 
 bool	is_valid_flag(const char flag, void *content)
 {
-
+	
 }
 
 int	ft_printf(const char *format, ...)
@@ -45,7 +45,7 @@ int	ft_printf(const char *format, ...)
 		if (*format == '%')
 		{
 			flag = *(++format);
-			if (is_valid_flag(flag, va_arg(ap, void *)))
+			if (!is_valid_flag(flag, va_arg(ap, void *)))
 				return (0);
 		}
 		++format;
