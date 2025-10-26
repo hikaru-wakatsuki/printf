@@ -1,22 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   printf.h                                           :+:      :+:    :+:   */
+/*   ft_lstadd_back_bonus.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hwakatsu <hwakatsu@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/15 03:42:20 by hwakatsu          #+#    #+#             */
-/*   Updated: 2025/10/26 14:21:24 by hwakatsu         ###   ########.fr       */
+/*   Created: 2025/10/20 20:25:36 by hwakatsu          #+#    #+#             */
+/*   Updated: 2025/10/22 19:52:24 by hwakatsu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PRINTF_H
-# define PRINTF_H
+#include "libft.h"
 
-# include <stdarg.h>
-# include <unistd.h>
-# include <stdbool.h>
+void	ft_lstadd_back(t_list **lst, t_list *new)
+{
+	t_list	*last_lst;
 
-char	*itoa_base(int n, long base);
-
-#endif
+	if (!lst)
+		return ;
+	if (!*lst)
+	{
+		*lst = new;
+		return ;
+	}
+	last_lst = ft_lstlast(*lst);
+	last_lst->next = new;
+}

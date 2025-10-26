@@ -1,22 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   printf.h                                           :+:      :+:    :+:   */
+/*   ft_putstr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hwakatsu <hwakatsu@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/15 03:42:20 by hwakatsu          #+#    #+#             */
-/*   Updated: 2025/10/26 14:21:24 by hwakatsu         ###   ########.fr       */
+/*   Created: 2025/10/19 21:56:19 by hwakatsu          #+#    #+#             */
+/*   Updated: 2025/10/19 21:58:32 by hwakatsu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PRINTF_H
-# define PRINTF_H
+#include "libft.h"
 
-# include <stdarg.h>
-# include <unistd.h>
-# include <stdbool.h>
-
-char	*itoa_base(int n, long base);
-
-#endif
+void	ft_putstr_fd(char *s, int fd)
+{
+	while (*s)
+		write(fd, (s++), 1);
+}

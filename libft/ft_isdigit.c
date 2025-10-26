@@ -1,22 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   printf.h                                           :+:      :+:    :+:   */
+/*   ft_isdigit.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hwakatsu <hwakatsu@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/15 03:42:20 by hwakatsu          #+#    #+#             */
-/*   Updated: 2025/10/26 14:21:24 by hwakatsu         ###   ########.fr       */
+/*   Created: 2025/10/15 03:44:34 by hwakatsu          #+#    #+#             */
+/*   Updated: 2025/10/22 20:05:15 by hwakatsu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PRINTF_H
-# define PRINTF_H
-
-# include <stdarg.h>
-# include <unistd.h>
-# include <stdbool.h>
-
-char	*itoa_base(int n, long base);
-
-#endif
+int	ft_isdigit(int c)
+{
+	if ('0' <= c && c <= '9')
+		return (1);
+	return (0);
+}

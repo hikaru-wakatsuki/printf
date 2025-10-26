@@ -1,22 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   printf.h                                           :+:      :+:    :+:   */
+/*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hwakatsu <hwakatsu@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/15 03:42:20 by hwakatsu          #+#    #+#             */
-/*   Updated: 2025/10/26 14:21:24 by hwakatsu         ###   ########.fr       */
+/*   Created: 2025/10/17 23:22:44 by hwakatsu          #+#    #+#             */
+/*   Updated: 2025/10/22 19:59:21 by hwakatsu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PRINTF_H
-# define PRINTF_H
+#include "libft.h"
 
-# include <stdarg.h>
-# include <unistd.h>
-# include <stdbool.h>
+char	*ft_strdup(const char *s)
+{
+	size_t	s_len;
+	char	*dup;
 
-char	*itoa_base(int n, long base);
-
-#endif
+	s_len = ft_strlen(s);
+	dup = (char *)malloc(sizeof(char) * (s_len + 1));
+	if (!dup)
+		return (NULL);
+	dup[s_len] = '\0';
+	while (*s)
+		*(dup++) = *(s++);
+	dup -= s_len;
+	return (dup);
+}

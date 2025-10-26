@@ -1,22 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   printf.h                                           :+:      :+:    :+:   */
+/*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hwakatsu <hwakatsu@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/15 03:42:20 by hwakatsu          #+#    #+#             */
-/*   Updated: 2025/10/26 14:21:24 by hwakatsu         ###   ########.fr       */
+/*   Created: 2025/10/17 20:43:29 by hwakatsu          #+#    #+#             */
+/*   Updated: 2025/10/26 13:02:35 by hwakatsu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PRINTF_H
-# define PRINTF_H
+int	ft_atoi(const char *nptr)
+{
+	long	sign;
+	long	nbr;
 
-# include <stdarg.h>
-# include <unistd.h>
-# include <stdbool.h>
-
-char	*itoa_base(int n, long base);
-
-#endif
+	while ((9 <= *nptr && *nptr <= 13) || (*nptr == ' '))
+		nptr++;
+	sign = 1;
+	if (*nptr == '+' || *nptr == '-')
+	{
+		if (*nptr == '-')
+			sign = -1;
+		nptr++;
+	}
+	nbr = 0;
+	while ('0' <= *nptr && *nptr <= '9')
+	{
+		nbr *= 10;
+		nbr += (long)(*nptr - '0');
+		nptr++;
+	}
+	return ((int)(sign * nbr));
+}

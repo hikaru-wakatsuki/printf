@@ -1,22 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   printf.h                                           :+:      :+:    :+:   */
+/*   ft_strmapi.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hwakatsu <hwakatsu@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/15 03:42:20 by hwakatsu          #+#    #+#             */
-/*   Updated: 2025/10/26 14:21:24 by hwakatsu         ###   ########.fr       */
+/*   Created: 2025/10/19 14:41:17 by hwakatsu          #+#    #+#             */
+/*   Updated: 2025/10/23 21:17:54 by hwakatsu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PRINTF_H
-# define PRINTF_H
+#include "libft.h"
 
-# include <stdarg.h>
-# include <unistd.h>
-# include <stdbool.h>
+char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
+{
+	char			*map;
+	unsigned int	index;
+	size_t			s_len;
 
-char	*itoa_base(int n, long base);
-
-#endif
+	s_len = ft_strlen(s);
+	map = (char *)malloc(sizeof(char) * (s_len + 1));
+	if (!map)
+		return (NULL);
+	index = 0;
+	while (s[index])
+	{
+		map[index] = f(index, s[index]);
+		index++;
+	}
+	map[index] = '\0';
+	return (map);
+}

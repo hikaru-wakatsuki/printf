@@ -1,22 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   printf.h                                           :+:      :+:    :+:   */
+/*   ft_calloc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hwakatsu <hwakatsu@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/15 03:42:20 by hwakatsu          #+#    #+#             */
-/*   Updated: 2025/10/26 14:21:24 by hwakatsu         ###   ########.fr       */
+/*   Created: 2025/10/17 22:10:36 by hwakatsu          #+#    #+#             */
+/*   Updated: 2025/10/22 19:50:56 by hwakatsu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PRINTF_H
-# define PRINTF_H
+#include "libft.h"
 
-# include <stdarg.h>
-# include <unistd.h>
-# include <stdbool.h>
+void	*ft_calloc(size_t nmemb, size_t size)
+{
+	void	*cal;
 
-char	*itoa_base(int n, long base);
-
-#endif
+	if (!nmemb || !size)
+		return (malloc(0));
+	if (nmemb >= INT_MAX / size)
+		return (NULL);
+	cal = malloc(nmemb * size);
+	if (!cal)
+		return (NULL);
+	ft_bzero(cal, nmemb * size);
+	return (cal);
+}

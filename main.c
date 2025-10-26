@@ -6,7 +6,7 @@
 /*   By: hwakatsu <hwakatsu@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/25 11:54:02 by hwakatsu          #+#    #+#             */
-/*   Updated: 2025/10/25 16:54:58 by hwakatsu         ###   ########.fr       */
+/*   Updated: 2025/10/26 13:55:09 by hwakatsu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,6 @@
 int main()
 {
 	char str[] = "a\0";
-	int str2 = 10;
-	printf("%d\n", str2);
+	int str2 = 15;
+	printf("%p\n", str2);
 }

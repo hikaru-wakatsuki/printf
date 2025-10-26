@@ -1,22 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   printf.h                                           :+:      :+:    :+:   */
+/*   ft_strrchr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hwakatsu <hwakatsu@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/15 03:42:20 by hwakatsu          #+#    #+#             */
-/*   Updated: 2025/10/26 14:21:24 by hwakatsu         ###   ########.fr       */
+/*   Created: 2025/10/16 21:11:34 by hwakatsu          #+#    #+#             */
+/*   Updated: 2025/10/22 20:01:04 by hwakatsu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PRINTF_H
-# define PRINTF_H
+#include "libft.h"
 
-# include <stdarg.h>
-# include <unistd.h>
-# include <stdbool.h>
+char	*ft_strrchr(const char *s, int c)
+{
+	size_t	i;
 
-char	*itoa_base(int n, long base);
-
-#endif
+	i = ft_strlen(s);
+	while (i > 0)
+	{
+		if (s[i] == (const char)c)
+			return ((char *)(s + i));
+		i--;
+	}
+	if (s[i] == (const char)c)
+		return ((char *)(s + i));
+	return (NULL);
+}

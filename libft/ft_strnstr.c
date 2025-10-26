@@ -1,22 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   printf.h                                           :+:      :+:    :+:   */
+/*   ft_strnstr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hwakatsu <hwakatsu@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/15 03:42:20 by hwakatsu          #+#    #+#             */
-/*   Updated: 2025/10/26 14:21:24 by hwakatsu         ###   ########.fr       */
+/*   Created: 2025/10/17 18:01:42 by hwakatsu          #+#    #+#             */
+/*   Updated: 2025/10/22 20:00:53 by hwakatsu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PRINTF_H
-# define PRINTF_H
+#include "libft.h"
 
-# include <stdarg.h>
-# include <unistd.h>
-# include <stdbool.h>
+char	*ft_strnstr(const char *big, const char *little, size_t len)
+{
+	size_t	i;
+	size_t	little_len;
 
-char	*itoa_base(int n, long base);
-
-#endif
+	little_len = ft_strlen(little);
+	if (little_len == 0)
+		return ((char *)big);
+	i = 0;
+	while (*big && (i++) + little_len <= len)
+	{
+		if (*big == *little)
+			if (ft_strncmp(big, little, little_len) == 0)
+				return ((char *)big);
+		big++;
+	}
+	return (NULL);
+}
