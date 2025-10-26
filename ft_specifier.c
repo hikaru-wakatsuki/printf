@@ -6,17 +6,20 @@
 /*   By: hwakatsu <hwakatsu@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/26 15:28:47 by hwakatsu          #+#    #+#             */
-/*   Updated: 2025/10/26 18:26:16 by hwakatsu         ###   ########.fr       */
+/*   Updated: 2025/10/26 19:28:18 by hwakatsu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "printf.h"
 #include "libft/libft.h"
 
-int	i_specifier(char *content)
+bool	i_specifier(char *content, int *count)
 {
 	int	decimal;
 
 	decimal = ft_atoi_base(content);
-
+	if (!ft_putnbr_printf(decimal, &count))
+		return (false);
+	return (true);
 }
+

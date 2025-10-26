@@ -6,7 +6,7 @@
 /*   By: hwakatsu <hwakatsu@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/24 19:21:03 by hwakatsu          #+#    #+#             */
-/*   Updated: 2025/10/26 15:44:14 by hwakatsu         ###   ########.fr       */
+/*   Updated: 2025/10/26 19:29:24 by hwakatsu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,9 @@ int	ft_printf(const char *format, ...)
 {
 	char	flag;
 	va_list	ap;
+	int count;
 
+	count = 0;
 	va_start(ap, format);
 	while (*format)
 	{
