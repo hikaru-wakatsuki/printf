@@ -6,7 +6,7 @@
 /*   By: hwakatsu <hwakatsu@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/24 19:21:03 by hwakatsu          #+#    #+#             */
-/*   Updated: 2025/10/26 15:33:34 by hwakatsu         ###   ########.fr       */
+/*   Updated: 2025/10/26 15:44:14 by hwakatsu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void	is_specifier(const char flag, void *content, int sign)
 	else if (flag == 'd')
 		ft_putnbr_fd((int)content, 1);
 	else if (flag == 'i')
-		i_specifier((int)content);
+		i_specifier((char *)content);
 	else if (flag == 'u')
 			else if (flag == 'x')
 				else if (flag == 'X')
