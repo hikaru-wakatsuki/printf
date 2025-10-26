@@ -6,15 +6,16 @@
 /*   By: hwakatsu <hwakatsu@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/25 11:54:02 by hwakatsu          #+#    #+#             */
-/*   Updated: 2025/10/25 11:57:42 by hwakatsu         ###   ########.fr       */
+/*   Updated: 2025/10/25 16:54:58 by hwakatsu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-//#include "printf.h"
-//#include <stdio.h>
+#include "printf.h"
+#include <stdio.h>
 
-//int main()
-//{
-//	char str[] = "a\0";
-//	printf("%d\n", str);
-//}
+int main()
+{
+	char str[] = "a\0";
+	int str2 = 10;
+	printf("%d\n", str2);
+}

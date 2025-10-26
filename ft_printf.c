@@ -6,32 +6,31 @@
 /*   By: hwakatsu <hwakatsu@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/24 19:21:03 by hwakatsu          #+#    #+#             */
-/*   Updated: 2025/10/24 22:37:54 by hwakatsu         ###   ########.fr       */
+/*   Updated: 2025/10/25 16:51:41 by hwakatsu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <printf.h>
 
-// int	count_n_and_one(const char *format, const char n)
-// {
-// 	int	i;
-
-// 	i = 0;
-// 	while (*format)
-// 	{
-// 		if (*format == n)
-// 		{
-// 			i++;
-// 			format++;
-// 		}
-// 		format++;
-// 	}
-// 	return (i);
-// }
-
-bool	is_valid_flag(const char flag, void *content)
+bool	is_valid_printf(const char **format, void *content)
 {
-	
+
+}
+
+void	flag_check(const char flag, void *content, int sign)
+{
+	if (flag == '-')
+		flag_space();
+	else if (flag == '0')
+		flag_zero();
+	else if (flag == '.')
+		flag_period();
+	else if (flag == '#')
+		flag_hash();
+	else if (flag == '+')
+
+	else if (flag == ' ')
+
 }
 
 int	ft_printf(const char *format, ...)
@@ -44,9 +43,12 @@ int	ft_printf(const char *format, ...)
 	{
 		if (*format == '%')
 		{
-			flag = *(++format);
-			if (!is_valid_flag(flag, va_arg(ap, void *)))
+			if (!is_valid_printf(&format, va_arg(ap, void *)))
 				return (0);
+		}
+		else
+		{
+			ft_putchar_fd(*format, 1);
 		}
 		++format;
 	}
