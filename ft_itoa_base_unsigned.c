@@ -6,35 +6,30 @@
 /*   By: hwakatsu <hwakatsu@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/19 01:23:03 by hwakatsu          #+#    #+#             */
-/*   Updated: 2025/10/27 08:14:17 by hwakatsu         ###   ########.fr       */
+/*   Updated: 2025/10/27 17:46:36 by hwakatsu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft/libft.h"
 
-static long	n_count(long nb, long base)
+static unsigned int	n_count(unsigned int n, unsigned int base)
 {
-	long	sign;
-	long	count;
+	unsigned int	sign;
+	unsigned int	count;
 
 	sign = 0;
-	if (nb < 0)
-	{
-		sign = 1;
-		nb *= -1;
-	}
-	else if (nb == 0)
+	if (n == 0)
 		return (1);
 	count = 0;
-	while (nb > 0)
+	while (n > 0)
 	{
-		nb /= base;
+		n /= base;
 		count++;
 	}
 	return (count + sign);
 }
 
-static char	convert_base(long mod)
+static char	lower_convert_base(unsigned int mod)
 {
 	if (mod == 10)
 		return ('a');
@@ -51,30 +46,42 @@ static char	convert_base(long mod)
 	return ((char)(mod + '0'));
 }
 
-
-char	*itoa_base_unsigned(unsigned int n, long base)
+static char	upper_convert_base(unsigned int mod)
 {
-	char	*str;
-	unsigned long	nb;
-	unsigned long	index;
+	if (mod == 10)
+		return ('A');
+	else if (mod == 11)
+		return ('B');
+	else if (mod == 12)
+		return ('C');
+	else if (mod == 13)
+		return ('D');
+	else if (mod == 14)
+		return ('E');
+	else if (mod == 15)
+		return ('F');
+	return ((char)(mod + '0'));
+}
 
-	nb = n;
-	index = n_count(nb, base);
+char	*itoa_base_unsigned(unsigned int n, const char flag, unsigned int base)
+{
+	char			*str;
+	unsigned int	index;
+
+	index = n_count(n, base);
 	str = (char *)malloc(sizeof(char) * (index + 1));
 	if (!str)
 		return (NULL);
 	str[(index--)] = '\0';
-	if (nb < 0)
-	{
-		nb *= -1;
-		str[0] = '-';
-	}
-	else if (nb == 0)
+	if (n == 0)
 		str[0] = '0';
-	while (nb > 0)
+	while (n > 0)
 	{
-		str[index] = convert_base(nb % base);
-		nb /= base;
+		if (flag == 'x')
+			str[index] = lower_convert_base(n % base);
+		else if (flag == 'X')
+			str[index] = upper_convert_base(n % base);
+		n /= base;
 		index--;
 	}
 	return (str);

@@ -6,18 +6,20 @@
 /*   By: hwakatsu <hwakatsu@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/24 19:21:03 by hwakatsu          #+#    #+#             */
-/*   Updated: 2025/10/27 07:58:27 by hwakatsu         ###   ########.fr       */
+/*   Updated: 2025/10/27 17:54:59 by hwakatsu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "printf.h"
 #include "libft/libft.h"
+#include "printf.h"
 
-bool	is_valid_printf(const char **format, void *content)
+bool	is_valid_printf(const char **format, void *content, int *count)
 {
+	while (is_specifier(**format, content, count))
+		(*format)++;
 }
 
-//static bool	is_specifier(char const flag)
+// static bool	is_specifier(char const flag)
 //{
 //	if (flag == 'c')
 //		return (true);
@@ -57,10 +59,8 @@ bool	is_specifier(const char flag, void *content, int *count)
 		is_print = i_specifier((char *)content, &count);
 	else if (flag == 'u')
 		is_print = ft_unsigned_putnbr_printf((unsigned int)content, &count);
-	else if (flag == 'x')
-		is_print = x_specifier((char *)content, &count);
-	else if (flag == 'X')
-		is_print = x_specifier((char *)content, &count);
+	else if (flag == 'x' || flag == 'X')
+		is_print = x_specifier((char *)content, flag, &count);
 	else if (flag == '%')
 		is_print = ft_putchar_printf('%', &count);
 	if (!is_print)
@@ -68,7 +68,7 @@ bool	is_specifier(const char flag, void *content, int *count)
 	return (true);
 }
 
-//void	flag_check(const char flag, void *content, int sign)
+// void	flag_check(const char flag, void *content, int sign)
 //{
 //	if (flag == '-')
 //		flag_hyphon();
@@ -88,7 +88,7 @@ int	ft_printf(const char *format, ...)
 {
 	char	flag;
 	va_list	ap;
-	int count;
+	int		count;
 
 	count = 0;
 	va_start(ap, format);
@@ -96,7 +96,7 @@ int	ft_printf(const char *format, ...)
 	{
 		if (*format == '%')
 		{
-			if (!is_valid_printf(&format, va_arg(ap, void *)))
+			if (!is_valid_printf(&format, va_arg(ap, void *), &count))
 				return (count);
 		}
 		else
