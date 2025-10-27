@@ -6,7 +6,7 @@
 /*   By: hwakatsu <hwakatsu@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/15 03:42:20 by hwakatsu          #+#    #+#             */
-/*   Updated: 2025/10/27 17:51:26 by hwakatsu         ###   ########.fr       */
+/*   Updated: 2025/10/27 18:59:23 by hwakatsu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,16 @@
 # include <stdarg.h>
 # include <stdbool.h>
 # include <unistd.h>
+# include <stdlib.h>
 
 int		ft_atoi_base(const char *nptr);
 char	*itoa_base(int n, long base);
 char	*itoa_base_unsigned(unsigned int n, const char flag, unsigned int base);
+int		ft_printf(const char *format, ...);
 bool	ft_putnbr_printf(int n, int *count);
+bool	p_specifier(char *content, int *count);
+bool	i_specifier(char *content, int *count);
+bool	x_specifier(char *content, const char flag, int *count);
 bool	ft_unsigned_putnbr_printf(unsigned int un, int *count);
 bool	ft_putstr_printf(char *s, int *count);
 bool	ft_putchar_printf(char c, int *count);

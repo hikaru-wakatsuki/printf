@@ -6,66 +6,61 @@
 /*   By: hwakatsu <hwakatsu@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/24 19:21:03 by hwakatsu          #+#    #+#             */
-/*   Updated: 2025/10/27 17:54:59 by hwakatsu         ###   ########.fr       */
+/*   Updated: 2025/10/27 18:48:52 by hwakatsu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft/libft.h"
 #include "printf.h"
 
-bool	is_valid_printf(const char **format, void *content, int *count)
+static bool	is_specifier(char const flag)
 {
-	while (is_specifier(**format, content, count))
-		(*format)++;
+	if (flag == 'c' || flag == 's' || flag == 'd' || flag == 'i')
+		return (true);
+	else if (flag == 'u' || flag == 'x' || flag == 'X' || flag == '%')
+		return (true);
+	return (false);
 }
 
-// static bool	is_specifier(char const flag)
-//{
-//	if (flag == 'c')
-//		return (true);
-//	else if (flag == 's')
-//		return (true);
-//	else if (flag == 'p')
-//		return (true);
-//	else if (flag == 'd')
-//		return (true);
-//	else if (flag == 'i')
-//		return (true);
-//	else if (flag == 'u')
-//		return (true);
-//	else if (flag == 'x')
-//		return (true);
-//	else if (flag == 'X')
-//		return (true);
-//	else if (flag == '%')
-//		return (true);
-//	return (false);
-//}
-
-bool	is_specifier(const char flag, void *content, int *count)
+static bool	print_specifier(const char flag, void *content, int *count)
 {
 	bool	is_print;
 
 	is_print = 0;
 	if (flag == 'c')
-		is_print = ft_putchar_printf((char)content, &count);
+		is_print = ft_putchar_printf(*(char *)content, count);
 	else if (flag == 's')
-		is_print = ft_putstr_printf((char *)content, &count);
+		is_print = ft_putstr_printf((char *)content, count);
 	else if (flag == 'p')
-		is_print = p_specifier((char *)content, &count);
+		is_print = p_specifier((char *)content, count);
 	else if (flag == 'd')
-		is_print = ft_putnbr_printf((int)content, &count);
+		is_print = ft_putnbr_printf(*(int *)content, count);
 	else if (flag == 'i')
-		is_print = i_specifier((char *)content, &count);
+		is_print = i_specifier((char *)content, count);
 	else if (flag == 'u')
-		is_print = ft_unsigned_putnbr_printf((unsigned int)content, &count);
+		is_print = ft_unsigned_putnbr_printf(*(unsigned int *)content, count);
 	else if (flag == 'x' || flag == 'X')
-		is_print = x_specifier((char *)content, flag, &count);
+		is_print = x_specifier((char *)content, flag, count);
 	else if (flag == '%')
-		is_print = ft_putchar_printf('%', &count);
+		is_print = ft_putchar_printf('%', count);
 	if (!is_print)
 		return (false);
 	return (true);
+}
+
+static bool	is_valid_printf(const char **format, void *content, int *count)
+{
+	while (**format)
+	{
+		if (is_specifier(**format))
+		{
+			if (print_specifier(**format, content, count))
+				return (true);
+			else
+				return (false);
+		}
+		(*format)++;
+	}
+	return (false);
 }
 
 // void	flag_check(const char flag, void *content, int sign)
@@ -86,7 +81,6 @@ bool	is_specifier(const char flag, void *content, int *count)
 
 int	ft_printf(const char *format, ...)
 {
-	char	flag;
 	va_list	ap;
 	int		count;
 
@@ -100,7 +94,10 @@ int	ft_printf(const char *format, ...)
 				return (count);
 		}
 		else
-			ft_putchar_printf(*format, &count);
+		{
+			if (!ft_putchar_printf(*format, &count))
+				return (count);
+		}
 		++format;
 	}
 	va_end(ap);
