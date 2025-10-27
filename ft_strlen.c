@@ -1,30 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_strlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hwakatsu <hwakatsu@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/25 11:54:02 by hwakatsu          #+#    #+#             */
-/*   Updated: 2025/10/27 22:20:52 by hwakatsu         ###   ########.fr       */
+/*   Created: 2025/10/15 07:08:20 by hwakatsu          #+#    #+#             */
+/*   Updated: 2025/10/27 21:16:19 by hwakatsu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "printf.h"
-#include <stdio.h>
 
-int main()
+size_t	ft_strlen(const char *s)
 {
-	// char str[] = "0xabcde\0";
-	// char c = 'c';
-	int i;
-	int j;
+	size_t	i;
 
-	i = 0x100;
-	j = i;
-	i = ft_printf("ft_print = %i\n", i);
-	ft_printf("%d\n", i);
-	j = printf("   print = %i\n", j);
-	printf("%d\n", j);
-
+	i = 0;
+	while (s[i])
+		i++;
+	return (i);
 }

@@ -6,7 +6,7 @@
 /*   By: hwakatsu <hwakatsu@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/24 19:21:03 by hwakatsu          #+#    #+#             */
-/*   Updated: 2025/10/27 21:07:57 by hwakatsu         ###   ########.fr       */
+/*   Updated: 2025/10/27 22:15:54 by hwakatsu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,8 @@ static bool	print_specifier(const char flag, va_list ap, int *count)
 		is_print = ft_putstr_printf(va_arg(ap, char *), count);
 	else if (flag == 'p')
 		is_print = p_specifier(va_arg(ap, void *), count);
-	else if (flag == 'd')
+	else if (flag == 'd' || flag == 'i')
 		is_print = ft_putnbr_printf(va_arg(ap, int), count);
-	else if (flag == 'i')
-		is_print = i_specifier(va_arg(ap, int), count);
 	else if (flag == 'u')
 		is_print = ft_unsigned_putnbr_printf(va_arg(ap, unsigned int), count);
 	else if (flag == 'x' || flag == 'X')
