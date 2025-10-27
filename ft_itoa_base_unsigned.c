@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_itoa_base.c                                     :+:      :+:    :+:   */
+/*   ft_itoa_base_unsigned.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hwakatsu <hwakatsu@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/19 01:23:03 by hwakatsu          #+#    #+#             */
-/*   Updated: 2025/10/27 08:14:03 by hwakatsu         ###   ########.fr       */
+/*   Updated: 2025/10/27 08:14:17 by hwakatsu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,13 +52,13 @@ static char	convert_base(long mod)
 }
 
 
-char	*itoa_base(int n, long base)
+char	*itoa_base_unsigned(unsigned int n, long base)
 {
 	char	*str;
-	long	nb;
-	long	index;
+	unsigned long	nb;
+	unsigned long	index;
 
-	nb = (long)n;
+	nb = n;
 	index = n_count(nb, base);
 	str = (char *)malloc(sizeof(char) * (index + 1));
 	if (!str)
