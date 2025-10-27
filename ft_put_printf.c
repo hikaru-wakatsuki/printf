@@ -6,11 +6,11 @@
 /*   By: hwakatsu <hwakatsu@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/19 21:47:39 by hwakatsu          #+#    #+#             */
-/*   Updated: 2025/10/27 20:49:05 by hwakatsu         ###   ########.fr       */
+/*   Updated: 2025/10/27 22:23:20 by hwakatsu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "printf.h"
+#include "ft_printf.h"
 
 bool	ft_putchar_printf(char c, int *count)
 {

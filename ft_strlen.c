@@ -6,11 +6,11 @@
 /*   By: hwakatsu <hwakatsu@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/15 07:08:20 by hwakatsu          #+#    #+#             */
-/*   Updated: 2025/10/27 21:16:19 by hwakatsu         ###   ########.fr       */
+/*   Updated: 2025/10/27 22:23:27 by hwakatsu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "printf.h"
+#include "ft_printf.h"
 
 size_t	ft_strlen(const char *s)
 {
