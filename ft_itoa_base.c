@@ -6,13 +6,13 @@
 /*   By: hwakatsu <hwakatsu@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/19 01:23:03 by hwakatsu          #+#    #+#             */
-/*   Updated: 2025/10/27 18:58:56 by hwakatsu         ###   ########.fr       */
+/*   Updated: 2025/10/27 20:57:53 by hwakatsu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "printf.h"
 
-static long	n_count(long nb, long base)
+static long long	n_count(long nb, long base)
 {
 	long	sign;
 	long	count;
@@ -51,14 +51,13 @@ static char	convert_base(long mod)
 	return ((char)(mod + '0'));
 }
 
-
-char	*itoa_base(int n, long base)
+char	*itoa_base(long long n, long long base)
 {
-	char	*str;
-	long	nb;
-	long	index;
+	char		*str;
+	long long	nb;
+	long long	index;
 
-	nb = (long)n;
+	nb = (long long)n;
 	index = n_count(nb, base);
 	str = (char *)malloc(sizeof(char) * (index + 1));
 	if (!str)

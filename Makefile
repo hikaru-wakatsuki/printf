@@ -6,7 +6,7 @@
 #    By: hwakatsu <hwakatsu@student.42tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/10/24 19:20:27 by hwakatsu          #+#    #+#              #
-#    Updated: 2025/10/24 22:39:30 by hwakatsu         ###   ########.fr        #
+#    Updated: 2025/10/27 21:02:27 by hwakatsu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,34 +16,25 @@ CC = cc
 CFLAGS = -Wall -Wextra -Werror
 INCDIR = .
 
-SRCS =		ft_printf.c \
-
-
-
-B_SRCS =	ft_lstnew_bonus.c \
-
+SRCS =		ft_atoi_base.c \
+			ft_itoa_base_unsigned.c \
+			ft_itoa_base.c \
+			ft_printf.c \
+			ft_put_printf.c \
+			ft_specifier.c \
 
 OBJS = $(SRCS:.c=.o)
-
-B_OBJS = $(B_SRCS:.c=.o)
-
-ifdef WITH_BONUS
-OBJS += $(B_OBJS)
-endif
 
 all: $(NAME)
 
 $(NAME): $(OBJS)
 	ar rcs $(NAME) $(OBJS)
 
-bonus:
-	make WITH_BONUS=1
-
 %.o: %.c
 	$(CC) $(CFLAGS) -I $(INCDIR) -c $< -o $@
 
 clean:
-	rm -f $(OBJS) $(B_OBJS)
+	rm -f $(OBJS)
 
 fclean:
 	$(MAKE) clean

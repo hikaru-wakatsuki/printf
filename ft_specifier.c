@@ -6,17 +6,19 @@
 /*   By: hwakatsu <hwakatsu@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/26 15:28:47 by hwakatsu          #+#    #+#             */
-/*   Updated: 2025/10/27 18:47:58 by hwakatsu         ###   ########.fr       */
+/*   Updated: 2025/10/27 21:08:10 by hwakatsu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "printf.h"
 
-bool	p_specifier(char *content, int *count)
+bool	p_specifier(void *content, int *count)
 {
-	char	*buffer;
+	char		*buffer;
+	long long	ptr;
 
-	buffer = itoa_base(*(int *)(content), 16);
+	ptr = (long long)content;
+	buffer = itoa_base(ptr, 16);
 	if (!buffer)
 		return (false);
 	if (!ft_putstr_printf("0x\0", count))
@@ -27,7 +29,7 @@ bool	p_specifier(char *content, int *count)
 	return (true);
 }
 
-bool	i_specifier(char *content, int *count)
+bool	i_specifier(int content, int *count)
 {
 	int	decimal;
 

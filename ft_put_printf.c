@@ -6,7 +6,7 @@
 /*   By: hwakatsu <hwakatsu@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/19 21:47:39 by hwakatsu          #+#    #+#             */
-/*   Updated: 2025/10/27 18:48:44 by hwakatsu         ###   ########.fr       */
+/*   Updated: 2025/10/27 20:49:05 by hwakatsu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ bool	ft_putchar_printf(char c, int *count)
 {
 	if (write(1, &c, 1) == -1)
 		return (false);
-	count++;
+	(*count)++;
 	return (true);
 }
 
@@ -33,7 +33,7 @@ bool	ft_putnbr_printf(int n, int *count)
 	}
 	if (nb >= 10)
 	{
-		if (!ft_putchar_printf((int)(nb / 10), count))
+		if (!ft_putnbr_printf((int)(nb / 10), count))
 			return (false);
 	}
 	if (!ft_putchar_printf((nb % 10) + '0', count))
@@ -68,7 +68,7 @@ bool	ft_putstr_printf(char *s, int *count)
 	{
 		if (write(1, (s++), 1) == -1)
 			return (false);
-		count++;
+		(*count)++;
 	}
 	return (true);
 }
