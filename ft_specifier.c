@@ -6,7 +6,7 @@
 /*   By: hwakatsu <hwakatsu@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/26 15:28:47 by hwakatsu          #+#    #+#             */
-/*   Updated: 2025/10/27 22:23:24 by hwakatsu         ###   ########.fr       */
+/*   Updated: 2025/10/27 22:41:48 by hwakatsu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ bool	p_specifier(void *content, int *count)
 	intptr_t	ptr;
 
 	ptr = (intptr_t)content;
-	buffer = itoa_base(ptr, "0123456789abcde");
+	buffer = itoa_base(ptr, "0123456789abcdef");
 	if (!buffer)
 		return (false);
 	if (!ft_putstr_printf("0x\0", count))

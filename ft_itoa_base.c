@@ -6,11 +6,21 @@
 /*   By: hwakatsu <hwakatsu@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/19 01:23:03 by hwakatsu          #+#    #+#             */
-/*   Updated: 2025/10/27 22:23:11 by hwakatsu         ###   ########.fr       */
+/*   Updated: 2025/10/27 22:42:16 by hwakatsu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
+
+static size_t	ft_strlen(const char *s)
+{
+	size_t	i;
+
+	i = 0;
+	while (s[i])
+		i++;
+	return (i);
+}
 
 static intptr_t	n_count(intptr_t nb, intptr_t base_len)
 {
@@ -51,7 +61,7 @@ char	*itoa_base(intptr_t n, char *base)
 		n *= -1;
 	while (n < 0)
 	{
-		str[index] = base[n * (-1) % base_len];
+		str[index] = base[(n * (-1)) % base_len];
 		n /= base_len;
 		index--;
 	}
