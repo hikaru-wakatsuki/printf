@@ -6,7 +6,7 @@
 /*   By: hwakatsu <hwakatsu@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/26 15:28:47 by hwakatsu          #+#    #+#             */
-/*   Updated: 2025/10/28 21:16:51 by hwakatsu         ###   ########.fr       */
+/*   Updated: 2025/10/28 21:50:20 by hwakatsu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,18 @@
 
 bool	c_specifier(int content, int *count, t_flag *flag)
 {
+	if (flag->width)
+	{
+		if (!before_flag_output(flag, count))
+			return (false);
+	}
 	if (!ft_putchar_printf((char)content, count))
 		return (false);
+	if (flag->minus)
+	{
+		if (!after_flag_output(flag, count))
+			return (false);
+	}
 	return (true);
 }
 
@@ -89,7 +99,7 @@ bool	x_specifier(unsigned int content, const char sp, int *count,
 
 bool	parcent_specifier(int *count, t_flag *flag)
 {
-	if (!ft_putchar_printf(('%', count)))
+	if (!ft_putchar_printf('%', count))
 		return (false);
 	return (true);
 }
