@@ -6,7 +6,7 @@
 /*   By: hwakatsu <hwakatsu@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/24 19:21:03 by hwakatsu          #+#    #+#             */
-/*   Updated: 2025/10/27 22:23:14 by hwakatsu         ###   ########.fr       */
+/*   Updated: 2025/10/28 03:56:50 by hwakatsu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static bool	print_specifier(const char flag, va_list ap, int *count)
 	else if (flag == 'u')
 		is_print = ft_unsigned_putnbr_printf(va_arg(ap, unsigned int), count);
 	else if (flag == 'x' || flag == 'X')
-		is_print = x_specifier(va_arg(ap, char *), flag, count);
+		is_print = x_specifier(va_arg(ap, void *), flag, count);
 	else if (flag == '%')
 		is_print = ft_putchar_printf('%', count);
 	if (!is_print)

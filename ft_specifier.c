@@ -6,7 +6,7 @@
 /*   By: hwakatsu <hwakatsu@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/26 15:28:47 by hwakatsu          #+#    #+#             */
-/*   Updated: 2025/10/27 22:41:48 by hwakatsu         ###   ########.fr       */
+/*   Updated: 2025/10/28 03:57:02 by hwakatsu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,16 @@ bool	p_specifier(void *content, int *count)
 	return (true);
 }
 
-bool	x_specifier(char *content, const char flag, int *count)
+bool	x_specifier(void *content, const char flag, int *count)
 {
-	char	*buffer;
+	char		*buffer;
+	intptr_t	ptr;
 
-	buffer = itoa_base_unsigned(*(unsigned int *)(content), flag, 16);
+	ptr = (intptr_t)content;
+	if (flag == 'x')
+		buffer = itoa_base(ptr, "0123456789abcdef");
+	else if (flag == 'X')
+		buffer = itoa_base(ptr, "0123456789ABCDEF");
 	if (!buffer)
 		return (false);
 	if (!ft_putstr_printf(buffer, count))

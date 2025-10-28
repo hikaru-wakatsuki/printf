@@ -1,30 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_printf_bonus.h                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hwakatsu <hwakatsu@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/25 11:54:02 by hwakatsu          #+#    #+#             */
-/*   Updated: 2025/10/28 03:58:13 by hwakatsu         ###   ########.fr       */
+/*   Created: 2025/10/15 03:42:20 by hwakatsu          #+#    #+#             */
+/*   Updated: 2025/10/28 03:53:58 by hwakatsu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-//#include "ft_printf.h"
-//#include <stdio.h>
+#ifndef FT_PRINTF_BONUS_H
+# define FT_PRINTF_BONUS_H
 
-//int main()
-//{
-//	char str[] = "abcde\0";
-//	// char c = 'c';
-//	int i;
-//	int j;
+# include <stdarg.h>
+# include <stdbool.h>
+# include <stdint.h>
+# include <stdlib.h>
+# include <unistd.h>
 
-//	// i = 0x100;
-//	// j = i;
-//	i = ft_printf("ft_print = \n%p\n", str);
-//	ft_printf("%d\n", i);
-//	j = printf("   print = %p\n", str);
-//	printf("%d\n", j);
+typedef struct s_flags
+{
+	bool	minus;
+	bool	zero;
+	bool	hash;
+	bool	plus;
+	bool	space;
+	int		width;
+	int		precision;
+	bool	dot;
+}			t_flag;
 
-//}
+#endif
