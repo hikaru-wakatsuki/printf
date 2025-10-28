@@ -6,7 +6,7 @@
 /*   By: hwakatsu <hwakatsu@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/24 19:21:03 by hwakatsu          #+#    #+#             */
-/*   Updated: 2025/10/28 03:56:50 by hwakatsu         ###   ########.fr       */
+/*   Updated: 2025/10/28 17:41:08 by hwakatsu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static bool	print_specifier(const char flag, va_list ap, int *count)
 	if (flag == 'c')
 		is_print = ft_putchar_printf((char)va_arg(ap, int), count);
 	else if (flag == 's')
-		is_print = ft_putstr_printf(va_arg(ap, char *), count);
+		is_print = s_specifier(va_arg(ap, char *), count);
 	else if (flag == 'p')
 		is_print = p_specifier(va_arg(ap, void *), count);
 	else if (flag == 'd' || flag == 'i')
@@ -37,7 +37,7 @@ static bool	print_specifier(const char flag, va_list ap, int *count)
 	else if (flag == 'u')
 		is_print = ft_unsigned_putnbr_printf(va_arg(ap, unsigned int), count);
 	else if (flag == 'x' || flag == 'X')
-		is_print = x_specifier(va_arg(ap, void *), flag, count);
+		is_print = x_specifier(va_arg(ap, unsigned int), flag, count);
 	else if (flag == '%')
 		is_print = ft_putchar_printf('%', count);
 	if (!is_print)
@@ -60,22 +60,6 @@ static bool	is_valid_printf(const char **format, va_list ap, int *count)
 	}
 	return (false);
 }
-
-// void	flag_check(const char flag, void *content, int sign)
-//{
-//	if (flag == '-')
-//		flag_hyphon();
-//	else if (flag == '0')
-//		flag_zero();
-//	else if (flag == '.')
-//		flag_period();
-//	else if (flag == '#')
-//		flag_hash();
-//	else if (flag == '+')
-//		flag_plus();
-//	else if (flag == ' ')
-//		flag_space();
-//}
 
 int	ft_printf(const char *format, ...)
 {

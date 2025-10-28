@@ -6,7 +6,7 @@
 #    By: hwakatsu <hwakatsu@student.42tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/10/24 19:20:27 by hwakatsu          #+#    #+#              #
-#    Updated: 2025/10/27 21:02:27 by hwakatsu         ###   ########.fr        #
+#    Updated: 2025/10/28 17:23:47 by hwakatsu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,9 +16,7 @@ CC = cc
 CFLAGS = -Wall -Wextra -Werror
 INCDIR = .
 
-SRCS =		ft_atoi_base.c \
-			ft_itoa_base_unsigned.c \
-			ft_itoa_base.c \
+SRCS =		ft_itoa_base.c \
 			ft_printf.c \
 			ft_put_printf.c \
 			ft_specifier.c \

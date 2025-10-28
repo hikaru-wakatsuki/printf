@@ -6,7 +6,7 @@
 /*   By: hwakatsu <hwakatsu@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/19 21:47:39 by hwakatsu          #+#    #+#             */
-/*   Updated: 2025/10/28 03:57:48 by hwakatsu         ###   ########.fr       */
+/*   Updated: 2025/10/28 18:00:44 by hwakatsu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,15 +43,12 @@ bool	ft_putnbr_printf(int n, int *count)
 
 bool	ft_unsigned_putnbr_printf(unsigned int un, int *count)
 {
-	unsigned long	nb;
-
-	nb = (unsigned long)un;
-	if (nb >= 10)
+	if (un >= 10)
 	{
-		if (!ft_putchar_printf((int)(nb / 10), count))
+		if (!ft_unsigned_putnbr_printf(un / 10, count))
 			return (false);
 	}
-	if (!ft_putchar_printf((nb % 10) + '0', count))
+	if (!ft_putchar_printf((un % 10) + '0', count))
 		return (false);
 	return (true);
 }
