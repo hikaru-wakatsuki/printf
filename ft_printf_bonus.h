@@ -6,7 +6,7 @@
 /*   By: hwakatsu <hwakatsu@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/15 03:42:20 by hwakatsu          #+#    #+#             */
-/*   Updated: 2025/10/28 03:53:58 by hwakatsu         ###   ########.fr       */
+/*   Updated: 2025/10/28 07:55:58 by hwakatsu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,13 @@
 
 typedef struct s_flags
 {
-	bool	minus;
-	bool	zero;
-	bool	hash;
-	bool	plus;
-	bool	space;
-	int		width;
-	int		precision;
-	bool	dot;
-}			t_flag;
+	int	minus;
+	int	zero;
+	int	hash;
+	int	plus;
+	int	space;
+	int	width;
+	int	dot;
+}		t_flag;
 
 #endif
