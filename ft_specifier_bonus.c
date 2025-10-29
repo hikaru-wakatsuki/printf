@@ -6,7 +6,7 @@
 /*   By: hwakatsu <hwakatsu@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/26 15:28:47 by hwakatsu          #+#    #+#             */
-/*   Updated: 2025/10/29 03:50:46 by hwakatsu         ###   ########.fr       */
+/*   Updated: 2025/10/29 15:02:04 by hwakatsu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 bool	c_specifier(int content, int *count, t_flag *flag)
 {
-	if (flag->width)
+	if (flag->width || !flag->minus)
 	{
 		if (!c_flag_output(flag->width, count))
 			return (false);
@@ -24,7 +24,7 @@ bool	c_specifier(int content, int *count, t_flag *flag)
 		return (false);
 	if (flag->minus)
 	{
-		if (!c_flag_output(flag->minus, count))
+		if (!c_flag_output(flag->width, count))
 			return (false);
 	}
 	return (true);
@@ -32,14 +32,29 @@ bool	c_specifier(int content, int *count, t_flag *flag)
 
 bool	s_specifier(char *content, int *count, t_flag *flag)
 {
+	int	n;
+
 	if (!content)
 	{
 		if (!ft_putstr_printf("(null)", count))
 			return (false);
 		return (true);
 	}
-	if (!ft_putstr_printf(content, count))
+	n = ft_strlen(content);
+	if (flag->dot)
+		n = flag->precision;
+	if (flag->width > n && !flag->minus)
+	{
+		if (!s_flag_output(flag->width - n, count))
+			return (false);
+	}
+	if (!ft_putnstr_printf(content, count, n))
 		return (false);
+	if (flag->width > n && flag->minus)
+	{
+		if (!s_flag_output(flag->width - n, count))
+			return (false);
+	}
 	return (true);
 }
 

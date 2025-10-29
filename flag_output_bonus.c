@@ -6,7 +6,7 @@
 /*   By: hwakatsu <hwakatsu@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/28 21:30:07 by hwakatsu          #+#    #+#             */
-/*   Updated: 2025/10/29 03:51:29 by hwakatsu         ###   ########.fr       */
+/*   Updated: 2025/10/29 09:45:54 by hwakatsu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,33 @@
 #include "ft_printf_bonus.h"
 
 bool	c_flag_output(int flag_count, int *count)
+{
+	while (flag_count - 1 > 0)
+	{
+		if (!ft_putchar_printf(' ', count))
+			return (false);
+		flag_count--;
+	}
+	return (true);
+}
+
+bool	s_flag_output(int flag_count, int *count)
+{
+	while (flag_count - 1 > 0)
+	{
+		if (!ft_putchar_printf(' ', count))
+			return (false);
+		flag_count--;
+	}
+	return (true);
+}
+
+int	s_flag_precision(int flag_count, int *count)
+{
+	
+}
+
+bool	s_flag_output(int flag_count, int *count)
 {
 	while (flag_count - 1 > 0)
 	{

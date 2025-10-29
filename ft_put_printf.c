@@ -6,7 +6,7 @@
 /*   By: hwakatsu <hwakatsu@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/19 21:47:39 by hwakatsu          #+#    #+#             */
-/*   Updated: 2025/10/28 18:00:44 by hwakatsu         ###   ########.fr       */
+/*   Updated: 2025/10/29 14:34:36 by hwakatsu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,21 @@ bool	ft_putstr_printf(char *s, int *count)
 		if (write(1, (s++), 1) == -1)
 			return (false);
 		(*count)++;
+	}
+	return (true);
+}
+
+bool	ft_putnstr_printf(char *s, int *count, int n)
+{
+	int	i;
+
+	i = 0;
+	while (s[i] && i < n)
+	{
+		if (write(1, &s[i], 1) == -1)
+			return (false);
+		(*count)++;
+		i++;
 	}
 	return (true);
 }
