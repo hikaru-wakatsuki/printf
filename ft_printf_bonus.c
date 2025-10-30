@@ -6,21 +6,22 @@
 /*   By: hwakatsu <hwakatsu@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/24 19:21:03 by hwakatsu          #+#    #+#             */
-/*   Updated: 2025/10/29 15:08:47 by hwakatsu         ###   ########.fr       */
+/*   Updated: 2025/10/30 21:32:34 by hwakatsu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 #include "ft_printf_bonus.h"
 
-static bool	is_flag(char const flag)
+static bool	is_flag_char(char const flag)
 {
-	if (flag == '-' || flag == '0' || flag == '#' || flag == '+' || flag == ' '
-		|| flag == '.')
-		return (true);
-	else if ('0' <= flag && flag <= '9')
-		return (true);
-	return (false);
+	return (flag == '-' || flag == '0' || flag == '#' || flag == '+'
+		|| flag == ' ');
+}
+
+static bool	ft_is_digit(char const flag)
+{
+	return ('0' <= flag && flag <= '9');
 }
 
 void	flag_initialization(t_flag *flag)
@@ -38,18 +39,12 @@ void	flag_initialization(t_flag *flag)
 bool	is_valid_printf(const char **format, va_list ap, int *count)
 {
 	t_flag	flag;
-	int		*tmp;
 
 	flag_initialization(&flag);
 	if (!flag_check(format, &flag))
 		return (false);
 	if (is_specifier(**format))
-	{
-		if (print_specifier(**format, ap, count, flag))
-			return (true);
-		else
-			return (false);
-	}
+		return (print_specifier(**format, ap, count, flag));
 	return (false);
 }
 
@@ -58,7 +53,7 @@ int	flag_nbr_insert(const char **format)
 	int	nbr;
 
 	nbr = 0;
-	while ('0' <= **format && **format <= '9')
+	while (ft_is_digit(**format))
 	{
 		nbr *= 10;
 		nbr += **format - '0';
@@ -67,32 +62,37 @@ int	flag_nbr_insert(const char **format)
 	return (nbr);
 }
 
+static void	dot_insert(const char **format, t_flag *flag)
+{
+	(*format)++;
+	flag->dot = true;
+	if (ft_is_digit(**format))
+		flag->precision = flag_nbr_insert(format);
+	else
+		flag->precision = 0;
+}
+
 void	flag_insert(const char **format, t_flag *flag)
 {
-	int		*tmp;
-	char	tmp_flag;
+	char	c;
 
-	tmp_flag = *(*format)++;
-	tmp = flag->width;
-	if (tmp_flag == '-')
+	c = *(*format)++;
+	if (c == '-')
 	{
 		flag->minus = true;
 		flag->zero = false;
 	}
-	else if (tmp_flag == '0' && !flag->minus)
+	else if (c == '0' && !flag->minus)
 		flag->zero = true;
-	else if (tmp_flag == '#')
+	else if (c == '#')
 		flag->hash = true;
-	else if (tmp_flag == '.')
+	else if (c == '+')
 	{
-		flag->dot = true;
-		tmp = flag->precision;
-	}
-	else if (tmp_flag == '+')
 		flag->plus = true;
-	else if (tmp_flag == ' ')
+		flag->space = false;
+	}
+	else if (c == ' ' && !flag->plus)
 		flag->space = true;
-	*tmp = flag_nbr_insert(format);
 }
 
 bool	flag_check(const char **format, t_flag *flag)
@@ -101,9 +101,14 @@ bool	flag_check(const char **format, t_flag *flag)
 	{
 		if (is_specifier(**format))
 			return (true);
-		else if (is_flag(**format))
+		if (is_flag_char(**format))
 			flag_insert(format, flag);
-		(*format)++;
+		else if (**format == '.')
+			dot_insert(format, flag);
+		else if (ft_is_digit(**format))
+			flag->width = flag_nbr_insert(format);
+		else
+			return (false);
 	}
 	return (false);
 }
