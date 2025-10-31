@@ -6,7 +6,7 @@
 /*   By: hwakatsu <hwakatsu@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/24 19:21:03 by hwakatsu          #+#    #+#             */
-/*   Updated: 2025/10/31 23:49:40 by hwakatsu         ###   ########.fr       */
+/*   Updated: 2025/10/31 23:52:27 by hwakatsu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,18 +33,6 @@ void	flag_initialization(t_flag *flag)
 	flag->width = 0;
 	flag->dot = false;
 	flag->precision = 0;
-}
-
-bool	is_valid_printf(const char **format, va_list ap, int *count)
-{
-	t_flag	flag;
-
-	flag_initialization(&flag);
-	if (!flag_check(format, &flag))
-		return (false);
-	if (is_specifier(**format))
-		return (print_specifier(**format, ap, count, &flag));
-	return (false);
 }
 
 int	flag_nbr_insert(const char **format)
