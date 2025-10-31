@@ -6,7 +6,7 @@
 /*   By: hwakatsu <hwakatsu@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/15 03:42:20 by hwakatsu          #+#    #+#             */
-/*   Updated: 2025/10/31 23:55:48 by hwakatsu         ###   ########.fr       */
+/*   Updated: 2025/10/31 18:11:07 by hwakatsu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,12 +53,15 @@ bool		x_minus_print(unsigned int content, int *count, t_flag *flag,
 bool		x_before_print(unsigned int content, int *count, t_flag *flag,
 				char *buffer);
 int			flag_strlen(int content, char *buffer, t_flag *flag);
-// ft_others
+// ft_printf_helper
 char		*itoa_base(uintptr_t n, char *base);
+bool		flag_check(const char **format, t_flag *flag);
+bool		is_flag_char(char const flag);
+void		flag_initialization(t_flag *flag);
+// ft_printf
 int			ft_printf(const char *format, ...);
-bool		ft_putnbr_printf(int n, int *count);
-bool		ft_unsigned_putnbr_printf(unsigned int un, int *count);
+// ft_put_printf
 bool		ft_putstr_printf(char *s, int *count);
 bool		ft_putchar_printf(char c, int *count);
-
+bool		ft_putnstr_printf(char *s, int *count, int n);
 #endif
