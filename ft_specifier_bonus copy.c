@@ -1,167 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_specifier_bonus.c                               :+:      :+:    :+:   */
+/*   ft_specifier_bonus copy.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hwakatsu <hwakatsu@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/26 15:28:47 by hwakatsu          #+#    #+#             */
-/*   Updated: 2025/10/31 19:59:12 by hwakatsu         ###   ########.fr       */
+/*   Updated: 2025/10/31 21:23:28 by hwakatsu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-#include "ft_printf_bonus.h"
-
-bool	c_specifier(int content, int *count, t_flag *flag)
-{
-	if (flag->width > 1 && !flag->minus)
-	{
-		if (!space_print(flag->width - 1, count))
-			return (false);
-	}
-	if (!ft_putchar_printf((char)content, count))
-		return (false);
-	if (flag->width > 1 && flag->minus)
-	{
-		if (!space_print(flag->width - 1, count))
-			return (false);
-	}
-	return (true);
-}
-
-static bool	s_null(int *count, t_flag *flag)
-{
-	if (flag->width > 6 && !flag->minus)
-	{
-		if (!space_print(flag->width - 6, count))
-			return (false);
-	}
-	if (!ft_putstr_printf("(null)", count))
-		return (false);
-	if (flag->width > 6 && flag->minus)
-	{
-		if (!space_print(flag->width - 6, count))
-			return (false);
-	}
-	return (true);
-}
-
-bool	s_specifier(char *content, int *count, t_flag *flag)
-{
-	int	n;
-
-	if (!content)
-		return (s_null(count, flag));
-	else
-		n = ft_strlen(content);
-	if (flag->dot && flag->precision < n)
-		n = flag->precision;
-	if (flag->width > n && !flag->minus)
-	{
-		if (!space_print(flag->width - n, count))
-			return (false);
-	}
-	if (!ft_putnstr_printf(content, count, n))
-		return (false);
-	if (flag->width > n && flag->minus)
-	{
-		if (!space_print(flag->width - n, count))
-			return (false);
-	}
-	return (true);
-}
-
-static bool	p_nil(int *count, t_flag *flag)
-{
-	if (flag->width > 5 && !flag->minus)
-	{
-		if (!space_print(flag->width - 5, count))
-			return (false);
-	}
-	if (!ft_putstr_printf("(nil)", count))
-		return (false);
-	if (flag->width > 5 && flag->minus)
-	{
-		if (!space_print(flag->width - 5, count))
-			return (false);
-	}
-	return (true);
-}
-
-bool	p_print(char *buffer, int *count, t_flag *flag)
-{
-	int	n;
-
-	n = ft_strlen(buffer);
-	if (flag->width > n + 2 && !flag->minus)
-	{
-		if (!space_print_malloc(flag->width - n - 2, count, buffer))
-			return (false);
-	}
-	if (!ft_putstr_printf("0x", count))
-		return (false);
-	if (!ft_putnstr_printf(buffer, count, n))
-		return (false);
-	if (flag->width > n + 2 && flag->minus)
-	{
-		if (!space_print_malloc(flag->width - n - 2, count, buffer))
-			return (false);
-	}
-	return (true);
-}
-
-bool	p_specifier(void *content, int *count, t_flag *flag)
-{
-	char		*buffer;
-	uintptr_t	ptr;
-	int			n;
-
-	ptr = (uintptr_t)content;
-	if (!ptr)
-		return (p_nil(count, flag));
-	buffer = itoa_base(ptr, "0123456789abcdef");
-	if (!buffer)
-		return (false);
-	if (!p_print(buffer, count, flag, buffer))
-		return (false);
-	free(buffer);
-	return (true);
-}
-
-bool	di_sign_print(int content, int *count, t_flag *flag, char *buffer)
-{
-	if (content < 0)
-	{
-		if (!ft_putchar_printf('-', count))
-		{
-			free(buffer);
-			return (false);
-		}
-	}
-	else if (flag->plus)
-	{
-		if (!ft_putchar_printf('+', count))
-		{
-			free(buffer);
-			return (false);
-		}
-	}
-	else if (flag->space)
-	{
-		if (!ft_putchar_printf(' ', count))
-		{
-			free(buffer);
-			return (false);
-		}
-	}
-	return (true);
-}
-
-static int	is_sign(int content, t_flag *flag)
-{
-	return (content < 0 || flag->plus || flag->space);
-}
 
 bool	di_width_print(int content, int *count, t_flag *flag, char *buffer)
 {
@@ -218,51 +67,10 @@ bool	di_minus_print(int content, int *count, t_flag *flag, char *buffer)
 	return (true);
 }
 
-bool	di_specifier(int content, int *count, t_flag *flag)
-{
-	char	*buffer;
-	int		digits;
-	long	tmp;
-	int		sign;
-
-	tmp = (long)content;
-	if (content < 0)
-		tmp *= -1;
-	sign = is_sign(content, flag);
-	buffer = itoa_base((uintptr_t)tmp, "0123456789");
-	if (!buffer)
-		return (false);
-	digits = ft_strlen(buffer);
-	if (!di_width_print(content, count, flag, buffer))
-		return (false);
-	if (!di_sign_print(content, count, flag, buffer))
-		return (false);
-	if (flag->width > digits && !flag->dot && !flag->minus && flag->zero)
-	{
-		if (!zero_print(flag->width - digits - sign, count))
-			return (false);
-	}
-	if (flag->precision > digits && flag->dot)
-	{
-		if (!zero_print(flag->precision - digits, count))
-			return (false);
-	}
-	if (!(!content && flag->dot && !flag->precision))
-	{
-		if (!ft_putnstr_printf(buffer, count, digits))
-			return (false);
-	}
-	if (!di_minus_print(content, count, flag, buffer))
-		return (false);
-	free(buffer);
-	return (true);
-}
-
 bool	u_specifier(unsigned int content, int *count, t_flag *flag)
 {
 	char	*buffer;
 	int		digits;
-	int		sign;
 
 	buffer = itoa_base((uintptr_t)content, "0123456789");
 	if (!buffer)
@@ -270,16 +78,14 @@ bool	u_specifier(unsigned int content, int *count, t_flag *flag)
 	digits = ft_strlen(buffer);
 	if (!di_width_print(content, count, flag, buffer))
 		return (false);
-	if (!di_sign_print(content, count, flag, buffer))
-		return (false);
 	if (flag->width > digits && !flag->dot && !flag->minus && flag->zero)
 	{
-		if (!zero_print(flag->width - digits - sign, count))
+		if (!zero_print_malloc(flag->width - digits, count, buffer))
 			return (false);
 	}
 	if (flag->precision > digits && flag->dot)
 	{
-		if (!zero_print(flag->precision - digits, count))
+		if (!zero_print_malloc(flag->precision - digits, count, buffer))
 			return (false);
 	}
 	if (!(!content && flag->dot && !flag->precision))
