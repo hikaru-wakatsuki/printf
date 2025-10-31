@@ -6,12 +6,11 @@
 /*   By: hwakatsu <hwakatsu@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/24 19:21:03 by hwakatsu          #+#    #+#             */
-/*   Updated: 2025/10/31 19:56:46 by hwakatsu         ###   ########.fr       */
+/*   Updated: 2025/10/31 23:42:25 by hwakatsu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-#include "ft_printf_bonus.h"
 
 static bool	is_specifier(char const flag)
 {
@@ -37,8 +36,10 @@ static bool	print_specifier(const char sp, va_list ap, int *count, t_flag *flag)
 		is_print = di_specifier(va_arg(ap, int), count, flag);
 	else if (sp == 'u')
 		is_print = u_specifier(va_arg(ap, unsigned int), count, flag);
-	else if (sp == 'x' || sp == 'X')
-		is_print = x_specifier(va_arg(ap, unsigned int), sp, count, flag);
+	else if (sp == 'x')
+		is_print = x_specifier(va_arg(ap, unsigned int), count, flag);
+	else if (sp == 'X')
+		is_print = x_upper_specifier(va_arg(ap, unsigned int), count, flag);
 	else if (sp == '%')
 		is_print = parcent_specifier(count, flag);
 	if (!is_print)
