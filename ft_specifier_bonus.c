@@ -6,7 +6,7 @@
 /*   By: hwakatsu <hwakatsu@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/26 15:28:47 by hwakatsu          #+#    #+#             */
-/*   Updated: 2025/10/31 09:15:03 by hwakatsu         ###   ########.fr       */
+/*   Updated: 2025/10/31 09:20:05 by hwakatsu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -196,7 +196,7 @@ bool	di_minus_print(int content, int *count, t_flag *flag, char *buffer)
 	digits = ft_strlen(buffer);
 	sign = is_sign(content, flag);
 	width = 0;
-	if (flag->width + sign > digits && flag->minus)
+	if (flag->width > digits + sign && flag->minus)
 	{
 		if (flag->precision > digits)
 			width = flag->width - flag->precision - sign;
