@@ -6,7 +6,7 @@
 #    By: hwakatsu <hwakatsu@student.42tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/10/24 19:20:27 by hwakatsu          #+#    #+#              #
-#    Updated: 2025/10/28 17:23:47 by hwakatsu         ###   ########.fr        #
+#    Updated: 2025/10/31 23:51:13 by hwakatsu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,12 +34,10 @@ $(NAME): $(OBJS)
 clean:
 	rm -f $(OBJS)
 
-fclean:
-	$(MAKE) clean
+fclean: clean
 	rm -f $(NAME)
 
-re:
-	$(MAKE) fclean all
+re: fclean all
 
 .PHONY:
 	all bonus clean fclean re
