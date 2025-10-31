@@ -6,20 +6,13 @@
 /*   By: hwakatsu <hwakatsu@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/24 19:21:03 by hwakatsu          #+#    #+#             */
-/*   Updated: 2025/10/31 23:42:25 by hwakatsu         ###   ########.fr       */
+/*   Updated: 2025/10/31 18:23:08 by hwakatsu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-static bool	is_specifier(char const flag)
-{
-	if (flag == 'c' || flag == 's' || flag == 'p' || flag == 'd' || flag == 'i')
-		return (true);
-	else if (flag == 'u' || flag == 'x' || flag == 'X' || flag == '%')
-		return (true);
-	return (false);
-}
+
 
 static bool	print_specifier(const char sp, va_list ap, int *count, t_flag *flag)
 {
