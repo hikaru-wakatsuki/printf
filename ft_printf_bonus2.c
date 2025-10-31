@@ -6,15 +6,33 @@
 /*   By: hwakatsu <hwakatsu@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/24 19:21:03 by hwakatsu          #+#    #+#             */
-/*   Updated: 2025/10/31 23:57:28 by hwakatsu         ###   ########.fr       */
+/*   Updated: 2025/10/31 23:52:27 by hwakatsu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
+static bool	is_flag_char(char const flag)
+{
+	return (flag == '-' || flag == '0' || flag == '#' || flag == '+'
+		|| flag == ' ');
+}
+
 static bool	ft_is_digit(char const flag)
 {
 	return ('0' <= flag && flag <= '9');
+}
+
+void	flag_initialization(t_flag *flag)
+{
+	flag->minus = false;
+	flag->zero = false;
+	flag->hash = false;
+	flag->plus = false;
+	flag->space = false;
+	flag->width = 0;
+	flag->dot = false;
+	flag->precision = 0;
 }
 
 int	flag_nbr_insert(const char **format)
