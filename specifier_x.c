@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_specifier_x.c                                   :+:      :+:    :+:   */
+/*   specifier_x.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hwakatsu <hwakatsu@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/26 15:28:47 by hwakatsu          #+#    #+#             */
-/*   Updated: 2025/10/31 23:36:39 by hwakatsu         ###   ########.fr       */
+/*   Updated: 2025/10/31 18:53:11 by hwakatsu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ bool	x_minus_print(unsigned int content, int *count, t_flag *flag,
 	return (true);
 }
 
-bool	x_before_print(unsigned int content, int *count, t_flag *flag,
+static bool	x_before_print(unsigned int content, int *count, t_flag *flag,
 		char *buffer)
 {
 	int	digits;
@@ -113,7 +113,7 @@ bool	x_specifier(unsigned int content, int *count, t_flag *flag)
 	char	*buffer;
 	int		digits;
 
-	buffer = itoa_ubase((uintptr_t)content, "0123456789abcdef");
+	buffer = itoa_base((uintptr_t)content, "0123456789abcdef");
 	if (!buffer)
 		return (false);
 	digits = flag_strlen(content, buffer, flag);

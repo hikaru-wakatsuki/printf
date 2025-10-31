@@ -6,7 +6,7 @@
 /*   By: hwakatsu <hwakatsu@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/15 03:42:20 by hwakatsu          #+#    #+#             */
-/*   Updated: 2025/10/31 18:28:30 by hwakatsu         ###   ########.fr       */
+/*   Updated: 2025/10/31 18:53:38 by hwakatsu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,6 @@ bool		per_specifier(int *count, t_flag *flag);
 bool		x_width_print(unsigned int content, int *count, t_flag *flag,
 				char *buffer);
 bool		x_minus_print(unsigned int content, int *count, t_flag *flag,
-				char *buffer);
-bool		x_before_print(unsigned int content, int *count, t_flag *flag,
 				char *buffer);
 int			flag_strlen(int content, char *buffer, t_flag *flag);
 // ft_printf_helper
