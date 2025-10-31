@@ -6,7 +6,7 @@
 /*   By: hwakatsu <hwakatsu@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/24 19:21:03 by hwakatsu          #+#    #+#             */
-/*   Updated: 2025/10/31 23:57:28 by hwakatsu         ###   ########.fr       */
+/*   Updated: 2025/11/01 00:00:59 by hwakatsu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	flag_nbr_insert(const char **format)
 	}
 	return (nbr);
 }
-
+aaaa
 static void	dot_insert(const char **format, t_flag *flag)
 {
 	(*format)++;
