@@ -6,7 +6,7 @@
 /*   By: hwakatsu <hwakatsu@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/15 03:42:20 by hwakatsu          #+#    #+#             */
-/*   Updated: 2025/10/31 22:17:00 by hwakatsu         ###   ########.fr       */
+/*   Updated: 2025/10/31 23:38:57 by hwakatsu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,20 @@ bool		zero_print_malloc(int flag_count, int *count, char *buffer);
 bool		c_specifier(int content, int *count, t_flag *flag);
 bool		s_specifier(char *content, int *count, t_flag *flag);
 bool		p_specifier(void *content, int *count, t_flag *flag);
-
+bool		di_specifier(int content, int *count, t_flag *flag);
+bool		u_specifier(unsigned int content, int *count, t_flag *flag);
+bool		x_specifier(unsigned int content, int *count, t_flag *flag);
+bool		x_upper_specifier(unsigned int content, int *count, t_flag *flag);
+bool		per_specifier(int *count, t_flag *flag);
+// ft_specifier_helper.c
+bool		x_width_print(unsigned int content, int *count, t_flag *flag,
+				char *buffer);
+bool		x_minus_print(unsigned int content, int *count, t_flag *flag,
+				char *buffer);
+bool		x_before_print(unsigned int content, int *count, t_flag *flag,
+				char *buffer);
 int			flag_strlen(int content, char *buffer, t_flag *flag);
+
 
 char		*itoa_base(uintptr_t n, char *base);
 int			ft_printf(const char *format, ...);

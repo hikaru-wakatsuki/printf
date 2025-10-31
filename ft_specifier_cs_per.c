@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_specifier_bonus copy.c                          :+:      :+:    :+:   */
+/*   ft_specifier_cs_per.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hwakatsu <hwakatsu@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/26 15:28:47 by hwakatsu          #+#    #+#             */
-/*   Updated: 2025/10/31 20:49:48 by hwakatsu         ###   ########.fr       */
+/*   Updated: 2025/10/31 23:33:45 by hwakatsu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,28 @@ bool	s_specifier(char *content, int *count, t_flag *flag)
 	if (flag->width > n && flag->minus)
 	{
 		if (!space_print(flag->width - n, count))
+			return (false);
+	}
+	return (true);
+}
+
+bool	per_specifier(int *count, t_flag *flag)
+{
+	if (flag->width > 1 && !flag->minus && !flag->zero)
+	{
+		if (!space_print(flag->width - 1, count))
+			return (false);
+	}
+	if (flag->width > 1 && !flag->minus && flag->zero)
+	{
+		if (!zero_print(flag->width - 1, count))
+			return (false);
+	}
+	if (!ft_putchar_printf('%', count))
+		return (false);
+	if (flag->width > 1 && flag->minus)
+	{
+		if (!space_print(flag->width - 1, count))
 			return (false);
 	}
 	return (true);
