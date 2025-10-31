@@ -6,7 +6,7 @@
 #    By: hwakatsu <hwakatsu@student.42tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/10/24 19:20:27 by hwakatsu          #+#    #+#              #
-#    Updated: 2025/10/31 18:21:16 by hwakatsu         ###   ########.fr        #
+#    Updated: 2025/10/31 18:42:23 by hwakatsu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,6 +15,9 @@ NAME = libftprintf.a
 CC = cc
 CFLAGS = -Wall -Wextra -Werror
 INCDIR = .
+
+LIBFT_DIR = libft
+LIBFT = $(LIBFT_DIR)/libft.a
 
 SRCS =		flag_check.c \
 			ft_itoa_base.c \
@@ -31,21 +34,26 @@ SRCS =		flag_check.c \
 
 OBJS = $(SRCS:.c=.o)
 
-all: $(NAME)
+all: $(LIBFT) $(NAME)
 
-bonus: $(NAME)
+bonus: $(LIBFT) $(NAME)
+
+$(LIBFT):
+	make -C $(LIBFT_DIR)
 
 $(NAME): $(OBJS)
-	ar rcs $(NAME) $(OBJS)
+	ar rcs $(NAME) $(OBJS) $(LIBFT)
 
 %.o: %.c
 	$(CC) $(CFLAGS) -I $(INCDIR) -c $< -o $@
 
 clean:
 	rm -f $(OBJS)
+	make -C $(LIBFT_DIR) clean
 
 fclean: clean
 	rm -f $(NAME)
+	make -C $(LIBFT_DIR) fclean
 
 re: fclean all
 

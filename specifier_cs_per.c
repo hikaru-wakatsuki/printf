@@ -1,16 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_specifier_cs_per.c                              :+:      :+:    :+:   */
+/*   specifier_cs_per.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hwakatsu <hwakatsu@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/26 15:28:47 by hwakatsu          #+#    #+#             */
-/*   Updated: 2025/10/31 23:40:23 by hwakatsu         ###   ########.fr       */
+/*   Updated: 2025/10/31 18:32:45 by hwakatsu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
+
+static size_t	ft_strlen(const char *s)
+{
+	size_t	i;
+
+	i = 0;
+	while (s[i])
+		i++;
+	return (i);
+}
 
 bool	c_specifier(int content, int *count, t_flag *flag)
 {

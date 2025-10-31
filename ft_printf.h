@@ -6,7 +6,7 @@
 /*   By: hwakatsu <hwakatsu@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/15 03:42:20 by hwakatsu          #+#    #+#             */
-/*   Updated: 2025/10/31 18:11:07 by hwakatsu         ###   ########.fr       */
+/*   Updated: 2025/10/31 18:28:30 by hwakatsu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ int			flag_strlen(int content, char *buffer, t_flag *flag);
 char		*itoa_base(uintptr_t n, char *base);
 bool		flag_check(const char **format, t_flag *flag);
 bool		is_flag_char(char const flag);
+bool		is_specifier(char const c);
 void		flag_initialization(t_flag *flag);
 // ft_printf
 int			ft_printf(const char *format, ...);
