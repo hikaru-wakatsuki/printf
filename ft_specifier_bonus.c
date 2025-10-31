@@ -6,7 +6,7 @@
 /*   By: hwakatsu <hwakatsu@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/26 15:28:47 by hwakatsu          #+#    #+#             */
-/*   Updated: 2025/10/31 09:20:05 by hwakatsu         ###   ########.fr       */
+/*   Updated: 2025/10/31 19:59:12 by hwakatsu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ bool	p_print(char *buffer, int *count, t_flag *flag)
 	n = ft_strlen(buffer);
 	if (flag->width > n + 2 && !flag->minus)
 	{
-		if (!space_print(flag->width - n - 2, count))
+		if (!space_print_malloc(flag->width - n - 2, count, buffer))
 			return (false);
 	}
 	if (!ft_putstr_printf("0x", count))
@@ -105,7 +105,7 @@ bool	p_print(char *buffer, int *count, t_flag *flag)
 		return (false);
 	if (flag->width > n + 2 && flag->minus)
 	{
-		if (!space_print(flag->width - n - 2, count))
+		if (!space_print_malloc(flag->width - n - 2, count, buffer))
 			return (false);
 	}
 	return (true);
@@ -123,11 +123,12 @@ bool	p_specifier(void *content, int *count, t_flag *flag)
 	buffer = itoa_base(ptr, "0123456789abcdef");
 	if (!buffer)
 		return (false);
-	if (!p_print(buffer, count, flag))
+	if (!p_print(buffer, count, flag, buffer))
 		return (false);
 	free(buffer);
 	return (true);
 }
+
 bool	di_sign_print(int content, int *count, t_flag *flag, char *buffer)
 {
 	if (content < 0)
@@ -167,17 +168,20 @@ bool	di_width_print(int content, int *count, t_flag *flag, char *buffer)
 	int	width;
 	int	sign;
 	int	digits;
+	int	flag_width_plus_zero;
 
 	digits = ft_strlen(buffer);
 	sign = is_sign(content, flag);
-	width = 0;
-	if (flag->width > digits + sign && !flag->minus && (!flag->zero
+	flag_width_plus_zero = flag->width;
+	if (!content && flag->dot && !flag->precision)
+		flag_width_plus_zero++;
+	if (flag_width_plus_zero > digits + sign && !flag->minus && (!flag->zero
 			|| flag->dot))
 	{
 		if (flag->precision > digits)
-			width = flag->width - flag->precision - sign;
+			width = flag_width_plus_zero - flag->precision - sign;
 		else
-			width = flag->width - digits - sign;
+			width = flag_width_plus_zero - digits - sign;
 		if (!space_print(width, count))
 		{
 			free(buffer);
@@ -192,16 +196,19 @@ bool	di_minus_print(int content, int *count, t_flag *flag, char *buffer)
 	int	width;
 	int	sign;
 	int	digits;
+	int	flag_width_plus_zero;
 
 	digits = ft_strlen(buffer);
 	sign = is_sign(content, flag);
-	width = 0;
-	if (flag->width > digits + sign && flag->minus)
+	flag_width_plus_zero = flag->width;
+	if (!content && flag->dot && !flag->precision)
+		flag_width_plus_zero++;
+	if (flag_width_plus_zero > digits + sign && flag->minus)
 	{
 		if (flag->precision > digits)
-			width = flag->width - flag->precision - sign;
+			width = flag_width_plus_zero - flag->precision - sign;
 		else
-			width = flag->width - digits - sign;
+			width = flag_width_plus_zero - digits - sign;
 		if (!space_print(width, count))
 		{
 			free(buffer);
@@ -226,7 +233,6 @@ bool	di_specifier(int content, int *count, t_flag *flag)
 	if (!buffer)
 		return (false);
 	digits = ft_strlen(buffer);
-	// if (flag->dot && flag->width > n && flag->minus && flag->zero)
 	if (!di_width_print(content, count, flag, buffer))
 		return (false);
 	if (!di_sign_print(content, count, flag, buffer))
@@ -254,37 +260,35 @@ bool	di_specifier(int content, int *count, t_flag *flag)
 
 bool	u_specifier(unsigned int content, int *count, t_flag *flag)
 {
-	char		*buffer;
-	uintptr_t	ptr;
-	int			n;
+	char	*buffer;
+	int		digits;
+	int		sign;
 
-	ptr = (uintptr_t)content;
-	buffer = itoa_ubase(ptr, "0123456789");
+	buffer = itoa_base((uintptr_t)content, "0123456789");
 	if (!buffer)
 		return (false);
-	n = ft_strlen(buffer);
-	if (flag->dot && flag->precision > n)
-		n = flag->precision;
-	if (flag->width > n + 2 && flag->minus)
+	digits = ft_strlen(buffer);
+	if (!di_width_print(content, count, flag, buffer))
+		return (false);
+	if (!di_sign_print(content, count, flag, buffer))
+		return (false);
+	if (flag->width > digits && !flag->dot && !flag->minus && flag->zero)
 	{
-		if (!space_print(flag->width - n - 2, count))
+		if (!zero_print(flag->width - digits - sign, count))
 			return (false);
 	}
-	if (flag->width > n + 2 && !flag->dot && !flag->minus && flag->zero)
+	if (flag->precision > digits && flag->dot)
 	{
-		if (!zero_print(flag->width - n - 2, count))
+		if (!zero_print(flag->precision - digits, count))
 			return (false);
 	}
-	if (!(!content && !flag->precision))
+	if (!(!content && flag->dot && !flag->precision))
 	{
-		if (!ft_putnstr_printf(buffer, count, n))
+		if (!ft_putnstr_printf(buffer, count, digits))
 			return (false);
 	}
-	if (flag->width > n + 2 && !flag->minus && !flag->zero)
-	{
-		if (!space_print(flag->width - n - 2, count))
-			return (false);
-	}
+	if (!di_minus_print(content, count, flag, buffer))
+		return (false);
 	free(buffer);
 	return (true);
 }
@@ -337,24 +341,19 @@ bool	x_specifier(unsigned int content, const char sp, int *count,
 
 bool	parcent_specifier(int *count, t_flag *flag)
 {
-	if (flag->width || !flag->minus || !flag->zero)
+	if (flag->width > 1 && !flag->minus)
 	{
-		if (!space_print(flag->width, count))
-			return (false);
-	}
-	if (!flag->minus || flag->zero)
-	{
-		if (!zero_print(flag->width, count))
+		if (!space_print(flag->width - 1, count))
 			return (false);
 	}
 	if (!ft_putchar_printf('%', count))
 		return (false);
-	return (true);
-	if (flag->minus)
+	if (flag->width > 1 && flag->minus)
 	{
-		if (!space_print(flag->width, count))
+		if (!space_print(flag->width - 1, count))
 			return (false);
 	}
+	return (true);
 }
 
 static bool	print_specifier(const char sp, va_list ap, int *count, t_flag *flag)
@@ -375,7 +374,7 @@ static bool	print_specifier(const char sp, va_list ap, int *count, t_flag *flag)
 	else if (sp == 'x' || sp == 'X')
 		is_print = x_specifier(va_arg(ap, unsigned int), sp, count, flag);
 	else if (sp == '%')
-		is_print = ft_putchar_printf(count, flag);
+		is_print = parcent_specifier(count, flag);
 	if (!is_print)
 		return (false);
 	return (true);

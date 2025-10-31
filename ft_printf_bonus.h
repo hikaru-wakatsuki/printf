@@ -6,7 +6,7 @@
 /*   By: hwakatsu <hwakatsu@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/15 03:42:20 by hwakatsu          #+#    #+#             */
-/*   Updated: 2025/10/29 13:42:05 by hwakatsu         ###   ########.fr       */
+/*   Updated: 2025/10/31 19:26:09 by hwakatsu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ typedef struct s_flags
 	int		precision;
 }			t_flag;
 
-bool		c_flag_output(int flag_count, int *count);
-
+bool	space_print(int flag_count, int *count);
+bool	zero_print(int flag_count, int *count);
+bool	space_print_malloc(int flag_count, int *count, char *buffer);
+bool	zero_print_malloc(int flag_count, int *count, char *buffer);
 #endif
