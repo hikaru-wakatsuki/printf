@@ -6,7 +6,7 @@
 /*   By: hwakatsu <hwakatsu@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/26 15:28:47 by hwakatsu          #+#    #+#             */
-/*   Updated: 2025/10/30 22:48:54 by hwakatsu         ###   ########.fr       */
+/*   Updated: 2025/10/31 09:15:03 by hwakatsu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,14 @@
 
 bool	c_specifier(int content, int *count, t_flag *flag)
 {
-	if (flag->width > 1 || !flag->minus)
+	if (flag->width > 1 && !flag->minus)
 	{
 		if (!space_print(flag->width - 1, count))
 			return (false);
 	}
 	if (!ft_putchar_printf((char)content, count))
 		return (false);
-	if (flag->width > 1 || flag->minus)
+	if (flag->width > 1 && flag->minus)
 	{
 		if (!space_print(flag->width - 1, count))
 			return (false);
@@ -94,7 +94,7 @@ bool	p_print(char *buffer, int *count, t_flag *flag)
 	int	n;
 
 	n = ft_strlen(buffer);
-	if (flag->width > n + 2 && flag->minus)
+	if (flag->width > n + 2 && !flag->minus)
 	{
 		if (!space_print(flag->width - n - 2, count))
 			return (false);
@@ -103,7 +103,7 @@ bool	p_print(char *buffer, int *count, t_flag *flag)
 		return (false);
 	if (!ft_putnstr_printf(buffer, count, n))
 		return (false);
-	if (flag->width > n + 2 && !flag->minus)
+	if (flag->width > n + 2 && flag->minus)
 	{
 		if (!space_print(flag->width - n - 2, count))
 			return (false);
@@ -120,7 +120,7 @@ bool	p_specifier(void *content, int *count, t_flag *flag)
 	ptr = (uintptr_t)content;
 	if (!ptr)
 		return (p_nil(count, flag));
-	buffer = itoa_ubase(ptr, "0123456789abcdef");
+	buffer = itoa_base(ptr, "0123456789abcdef");
 	if (!buffer)
 		return (false);
 	if (!p_print(buffer, count, flag))
@@ -128,50 +128,126 @@ bool	p_specifier(void *content, int *count, t_flag *flag)
 	free(buffer);
 	return (true);
 }
+bool	di_sign_print(int content, int *count, t_flag *flag, char *buffer)
+{
+	if (content < 0)
+	{
+		if (!ft_putchar_printf('-', count))
+		{
+			free(buffer);
+			return (false);
+		}
+	}
+	else if (flag->plus)
+	{
+		if (!ft_putchar_printf('+', count))
+		{
+			free(buffer);
+			return (false);
+		}
+	}
+	else if (flag->space)
+	{
+		if (!ft_putchar_printf(' ', count))
+		{
+			free(buffer);
+			return (false);
+		}
+	}
+	return (true);
+}
+
+static int	is_sign(int content, t_flag *flag)
+{
+	return (content < 0 || flag->plus || flag->space);
+}
+
+bool	di_width_print(int content, int *count, t_flag *flag, char *buffer)
+{
+	int	width;
+	int	sign;
+	int	digits;
+
+	digits = ft_strlen(buffer);
+	sign = is_sign(content, flag);
+	width = 0;
+	if (flag->width > digits + sign && !flag->minus && (!flag->zero
+			|| flag->dot))
+	{
+		if (flag->precision > digits)
+			width = flag->width - flag->precision - sign;
+		else
+			width = flag->width - digits - sign;
+		if (!space_print(width, count))
+		{
+			free(buffer);
+			return (false);
+		}
+	}
+	return (true);
+}
+
+bool	di_minus_print(int content, int *count, t_flag *flag, char *buffer)
+{
+	int	width;
+	int	sign;
+	int	digits;
+
+	digits = ft_strlen(buffer);
+	sign = is_sign(content, flag);
+	width = 0;
+	if (flag->width + sign > digits && flag->minus)
+	{
+		if (flag->precision > digits)
+			width = flag->width - flag->precision - sign;
+		else
+			width = flag->width - digits - sign;
+		if (!space_print(width, count))
+		{
+			free(buffer);
+			return (false);
+		}
+	}
+	return (true);
+}
 
 bool	di_specifier(int content, int *count, t_flag *flag)
 {
-	char		*buffer;
-	intptr_t	ptr;
-	int			n;
+	char	*buffer;
+	int		digits;
+	long	tmp;
+	int		sign;
 
-	ptr = (intptr_t)content;
-	buffer = itoa_base(ptr, "0123456789");
+	tmp = (long)content;
+	if (content < 0)
+		tmp *= -1;
+	sign = is_sign(content, flag);
+	buffer = itoa_base((uintptr_t)tmp, "0123456789");
 	if (!buffer)
 		return (false);
-	n = ft_strlen(buffer);
-	if (flag->dot && flag->precision > n)
-		n = flag->precision;
-	if (flag->width > n + 2 && flag->minus)
+	digits = ft_strlen(buffer);
+	// if (flag->dot && flag->width > n && flag->minus && flag->zero)
+	if (!di_width_print(content, count, flag, buffer))
+		return (false);
+	if (!di_sign_print(content, count, flag, buffer))
+		return (false);
+	if (flag->width > digits && !flag->dot && !flag->minus && flag->zero)
 	{
-		if (!space_print(flag->width - n - 2, count))
+		if (!zero_print(flag->width - digits - sign, count))
 			return (false);
 	}
-	if (flag->plus)
+	if (flag->precision > digits && flag->dot)
 	{
-		if (!ft_putchar_printf('+', count))
+		if (!zero_print(flag->precision - digits, count))
 			return (false);
 	}
-		else if (flag->space)
+	if (!(!content && flag->dot && !flag->precision))
 	{
-		if (!ft_putchar_printf(' ', count))
+		if (!ft_putnstr_printf(buffer, count, digits))
 			return (false);
 	}
-	if (flag->width > n + 2 && !flag->dot && !flag->minus && flag->zero)
-	{
-		if (!zero_print(flag->width - n - 2, count))
-			return (false);
-	}
-	if (!(!content && !flag->precision))
-	{
-		if (!ft_putnstr_printf(buffer, count, n))
-			return (false);
-	}
-	if (flag->width > n + 2 && !flag->minus && !flag->zero)
-	{
-		if (!space_print(flag->width - n - 2, count))
-			return (false);
-	}
+	if (!di_minus_print(content, count, flag, buffer))
+		return (false);
 	free(buffer);
 	return (true);
 }
@@ -217,7 +293,7 @@ bool	x_specifier(unsigned int content, const char sp, int *count,
 		t_flag *flag)
 {
 	char	*buffer;
-	int			n;
+	int		n;
 
 	if (sp == 'x')
 		buffer = itoa_ubase(content, "0123456789abcdef");

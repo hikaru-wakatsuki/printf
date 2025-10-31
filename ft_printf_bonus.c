@@ -6,7 +6,7 @@
 /*   By: hwakatsu <hwakatsu@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/24 19:21:03 by hwakatsu          #+#    #+#             */
-/*   Updated: 2025/10/30 21:32:34 by hwakatsu         ###   ########.fr       */
+/*   Updated: 2025/10/31 08:19:27 by hwakatsu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ bool	is_valid_printf(const char **format, va_list ap, int *count)
 	if (!flag_check(format, &flag))
 		return (false);
 	if (is_specifier(**format))
-		return (print_specifier(**format, ap, count, flag));
+		return (print_specifier(**format, ap, count, &flag));
 	return (false);
 }
 

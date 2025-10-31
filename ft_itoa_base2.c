@@ -6,7 +6,7 @@
 /*   By: hwakatsu <hwakatsu@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/19 01:23:03 by hwakatsu          #+#    #+#             */
-/*   Updated: 2025/10/28 18:08:21 by hwakatsu         ###   ########.fr       */
+/*   Updated: 2025/10/30 08:03:54 by hwakatsu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,16 +22,18 @@ static size_t	ft_strlen(const char *s)
 	return (i);
 }
 
-static uintptr_t	n_count(uintptr_t nb, uintptr_t base_len)
+static intptr_t	n_count(intptr_t nb, intptr_t base_len)
 {
-	uintptr_t	sign;
-	uintptr_t	count;
+	intptr_t	sign;
+	intptr_t	count;
 
 	sign = 0;
-	if (nb == 0)
+	if (nb <= 0)
 		sign = 1;
+	else
+		nb *= -1;
 	count = 0;
-	while (nb)
+	while (nb < 0)
 	{
 		nb /= base_len;
 		count++;
@@ -39,23 +41,27 @@ static uintptr_t	n_count(uintptr_t nb, uintptr_t base_len)
 	return (count + sign);
 }
 
-char	*itoa_base(uintptr_t n, char *base)
+char	*itoa_base(intptr_t n, char *base)
 {
 	char		*str;
-	uintptr_t	base_len;
-	uintptr_t	index;
+	intptr_t	base_len;
+	intptr_t	index;
 
-	base_len = (uintptr_t)ft_strlen(base);
+	base_len = (intptr_t)ft_strlen(base);
 	index = n_count(n, base_len);
 	str = (char *)malloc(sizeof(char) * (index + 1));
 	if (!str)
 		return (NULL);
 	str[(index--)] = '\0';
-	if (n == 0)
+	if (n < 0)
+		str[0] = '-';
+	else if (n == 0)
 		str[0] = '0';
-	while (n)
+	else
+		n *= -1;
+	while (n < 0)
 	{
-		str[index] = base[n % base_len];
+		str[index] = base[(n * -1) % base_len];
 		n /= base_len;
 		index--;
 	}
