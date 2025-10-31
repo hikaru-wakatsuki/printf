@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_specifier_u.c                                   :+:      :+:    :+:   */
+/*   specifier_u.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hwakatsu <hwakatsu@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/26 15:28:47 by hwakatsu          #+#    #+#             */
-/*   Updated: 2025/10/31 23:53:28 by hwakatsu         ###   ########.fr       */
+/*   Updated: 2025/10/31 18:48:16 by hwakatsu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ bool	u_specifier(unsigned int content, int *count, t_flag *flag)
 	buffer = itoa_base((uintptr_t)content, "0123456789");
 	if (!buffer)
 		return (false);
-	digits = ft_strlen(buffer);
+	digits = flag_strlen(content, buffer, flag);
 	if (!u_before_print(content, count, flag, buffer))
 		return (false);
 	if (!(!content && flag->dot && !flag->precision))

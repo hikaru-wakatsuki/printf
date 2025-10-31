@@ -1,28 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf_bonus.c                                  :+:      :+:    :+:   */
+/*   flag_check.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hwakatsu <hwakatsu@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/24 19:21:03 by hwakatsu          #+#    #+#             */
-/*   Updated: 2025/10/31 18:04:18 by hwakatsu         ###   ########.fr       */
+/*   Updated: 2025/10/31 18:47:39 by hwakatsu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-
-static bool	ft_is_digit(char const flag)
-{
-	return ('0' <= flag && flag <= '9');
-}
+#include "libft/libft.h"
 
 static int	flag_nbr_insert(const char **format)
 {
 	int	nbr;
 
 	nbr = 0;
-	while (ft_is_digit(**format))
+	while (ft_isdigit(**format))
 	{
 		nbr *= 10;
 		nbr += **format - '0';
@@ -35,7 +31,7 @@ static void	dot_insert(const char **format, t_flag *flag)
 {
 	(*format)++;
 	flag->dot = true;
-	if (ft_is_digit(**format))
+	if (ft_isdigit(**format))
 		flag->precision = flag_nbr_insert(format);
 	else
 		flag->precision = 0;
@@ -74,7 +70,7 @@ bool	flag_check(const char **format, t_flag *flag)
 			flag_insert(format, flag);
 		else if (**format == '.')
 			dot_insert(format, flag);
-		else if (ft_is_digit(**format))
+		else if (ft_isdigit(**format))
 			flag->width = flag_nbr_insert(format);
 		else
 			return (false);
