@@ -6,18 +6,18 @@
 #    By: hwakatsu <hwakatsu@student.42tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/10/24 19:20:27 by hwakatsu          #+#    #+#              #
-#    Updated: 2025/10/31 18:50:35 by hwakatsu         ###   ########.fr        #
+#    Updated: 2025/11/04 02:56:12 by hwakatsu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = libftprintf.a
+LIBFT = $(LIBFT_DIR)/libft.a
 
 CC = cc
 CFLAGS = -Wall -Wextra -Werror
-INCDIR = .
 
+INCDIR = .
 LIBFT_DIR = libft
-LIBFT = $(LIBFT_DIR)/libft.a
 
 SRCS =		flag_check.c \
 			ft_itoa_base.c \
@@ -30,32 +30,31 @@ SRCS =		flag_check.c \
 			specifier_p.c \
 			specifier_u.c \
 			specifier_x_upper.c \
-			specifier_x.c \
+			specifier_x.c
 
 OBJS = $(SRCS:.c=.o)
 
-all: $(LIBFT) $(NAME)
-
-bonus: $(LIBFT) $(NAME)
+all: $(NAME)
+bonus: all
 
 $(LIBFT):
 	make -C $(LIBFT_DIR)
 
-$(NAME): $(OBJS)
-	ar rcs $(NAME) $(OBJS) $(LIBFT)
+$(NAME): $(OBJS) $(LIBFT)
+	cp $(LIBFT) $(NAME)
+	ar rcs $(NAME) $(OBJS)
 
 %.o: %.c
 	$(CC) $(CFLAGS) -I $(INCDIR) -c $< -o $@
 
 clean:
 	rm -f $(OBJS)
-	make -C $(LIBFT_DIR) clean
+	make clean -C $(LIBFT_DIR)
 
 fclean: clean
 	rm -f $(NAME)
-	make -C $(LIBFT_DIR) fclean
+	make fclean -C $(LIBFT_DIR)
 
 re: fclean all
 
-.PHONY:
-	all bonus clean fclean re
+.PHONY: all bonus clean fclean re
