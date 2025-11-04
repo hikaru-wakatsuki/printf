@@ -6,7 +6,7 @@
 /*   By: hwakatsu <hwakatsu@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/26 15:28:47 by hwakatsu          #+#    #+#             */
-/*   Updated: 2025/10/31 18:32:45 by hwakatsu         ###   ########.fr       */
+/*   Updated: 2025/11/04 07:08:57 by hwakatsu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,16 +41,21 @@ bool	c_specifier(int content, int *count, t_flag *flag)
 
 static bool	s_null(int *count, t_flag *flag)
 {
-	if (flag->width > 6 && !flag->minus)
+	int	n;
+
+	n = 6;
+	if (flag->dot && flag->precision < n)
+		n = flag->precision;
+	if (flag->width > n && !flag->minus)
 	{
-		if (!space_print(flag->width - 6, count))
+		if (!space_print(flag->width - n, count))
 			return (false);
 	}
-	if (!ft_putstr_printf("(null)", count))
+	if (!ft_putnstr_printf("(null)", count, n))
 		return (false);
-	if (flag->width > 6 && flag->minus)
+	if (flag->width > n && flag->minus)
 	{
-		if (!space_print(flag->width - 6, count))
+		if (!space_print(flag->width - n, count))
 			return (false);
 	}
 	return (true);
