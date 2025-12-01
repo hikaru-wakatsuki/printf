@@ -6,12 +6,11 @@
 /*   By: hwakatsu <hwakatsu@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/26 15:28:47 by hwakatsu          #+#    #+#             */
-/*   Updated: 2025/10/31 18:44:54 by hwakatsu         ###   ########.fr       */
+/*   Updated: 2025/12/01 20:17:41 by hwakatsu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-#include "libft/libft.h"
 
 static bool	p_nil(int *count, t_flag *flag)
 {

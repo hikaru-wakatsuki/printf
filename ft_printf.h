@@ -6,12 +6,14 @@
 /*   By: hwakatsu <hwakatsu@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/15 03:42:20 by hwakatsu          #+#    #+#             */
-/*   Updated: 2025/10/31 18:53:38 by hwakatsu         ###   ########.fr       */
+/*   Updated: 2025/12/01 20:32:12 by hwakatsu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_PRINTF_H
 # define FT_PRINTF_H
+
+# include "libft/libft.h"
 
 # include <stdarg.h>
 # include <stdbool.h>
@@ -44,7 +46,7 @@ bool		di_specifier(int content, int *count, t_flag *flag);
 bool		u_specifier(unsigned int content, int *count, t_flag *flag);
 bool		x_specifier(unsigned int content, int *count, t_flag *flag);
 bool		x_upper_specifier(unsigned int content, int *count, t_flag *flag);
-bool		per_specifier(int *count, t_flag *flag);
+bool		per_specifier(int *count);
 // ft_specifier_helper.c
 bool		x_width_print(unsigned int content, int *count, t_flag *flag,
 				char *buffer);

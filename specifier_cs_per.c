@@ -6,21 +6,11 @@
 /*   By: hwakatsu <hwakatsu@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/26 15:28:47 by hwakatsu          #+#    #+#             */
-/*   Updated: 2025/11/04 07:08:57 by hwakatsu         ###   ########.fr       */
+/*   Updated: 2025/12/01 21:02:57 by hwakatsu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-
-static size_t	ft_strlen(const char *s)
-{
-	size_t	i;
-
-	i = 0;
-	while (s[i])
-		i++;
-	return (i);
-}
 
 bool	c_specifier(int content, int *count, t_flag *flag)
 {
@@ -45,7 +35,7 @@ static bool	s_null(int *count, t_flag *flag)
 
 	n = 6;
 	if (flag->dot && flag->precision < n)
-		n = flag->precision;
+		n = 0;
 	if (flag->width > n && !flag->minus)
 	{
 		if (!space_print(flag->width - n, count))
@@ -86,24 +76,9 @@ bool	s_specifier(char *content, int *count, t_flag *flag)
 	return (true);
 }
 
-bool	per_specifier(int *count, t_flag *flag)
+bool	per_specifier(int *count)
 {
-	if (flag->width > 1 && !flag->minus && !flag->zero)
-	{
-		if (!space_print(flag->width - 1, count))
-			return (false);
-	}
-	if (flag->width > 1 && !flag->minus && flag->zero)
-	{
-		if (!zero_print(flag->width - 1, count))
-			return (false);
-	}
 	if (!ft_putchar_printf('%', count))
 		return (false);
-	if (flag->width > 1 && flag->minus)
-	{
-		if (!space_print(flag->width - 1, count))
-			return (false);
-	}
 	return (true);
 }

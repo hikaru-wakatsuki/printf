@@ -6,7 +6,7 @@
 /*   By: hwakatsu <hwakatsu@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/24 19:21:03 by hwakatsu          #+#    #+#             */
-/*   Updated: 2025/11/04 08:01:39 by hwakatsu         ###   ########.fr       */
+/*   Updated: 2025/12/01 19:40:28 by hwakatsu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static bool	print_specifier(const char sp, va_list *ap, int *count,
 	else if (sp == 'X')
 		is_print = x_upper_specifier(va_arg(*ap, unsigned int), count, flag);
 	else if (sp == '%')
-		is_print = per_specifier(count, flag);
+		is_print = per_specifier(count);
 	if (!is_print)
 		return (false);
 	return (true);

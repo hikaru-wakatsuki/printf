@@ -6,21 +6,11 @@
 /*   By: hwakatsu <hwakatsu@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/19 01:23:03 by hwakatsu          #+#    #+#             */
-/*   Updated: 2025/10/28 18:08:21 by hwakatsu         ###   ########.fr       */
+/*   Updated: 2025/12/01 20:17:06 by hwakatsu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-
-static size_t	ft_strlen(const char *s)
-{
-	size_t	i;
-
-	i = 0;
-	while (s[i])
-		i++;
-	return (i);
-}
 
 static uintptr_t	n_count(uintptr_t nb, uintptr_t base_len)
 {
