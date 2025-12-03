@@ -6,7 +6,7 @@
 #    By: hwakatsu <hwakatsu@student.42tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/10/24 19:20:27 by hwakatsu          #+#    #+#              #
-#    Updated: 2025/12/01 20:32:04 by hwakatsu         ###   ########.fr        #
+#    Updated: 2025/12/01 21:39:36 by hwakatsu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,7 +30,7 @@ SRCS =		flag_check.c \
 			specifier_p.c \
 			specifier_u.c \
 			specifier_x_upper.c \
-			specifier_x.c
+			specifier_x.c 
 
 OBJS = $(SRCS:.c=.o)
 
